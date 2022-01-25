@@ -9,9 +9,9 @@ const StyledHeader = styled.header`
     background: rgb(41,23,70);
     background: linear-gradient(189deg, rgba(41,23,70,1) 83%, rgba(21,1,64,1) 93%);
     color: white;
-    font-family: Comfortaa;
     text-align: center;
     padding: 25px 10px 20px 10px;
+    margin-bottom: 45px;
 
     h1 {
         font-size: 60px;

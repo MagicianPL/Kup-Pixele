@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
+import { PixelsContext } from '../context/PixelsContext';
 
 const StyledSubgrid = styled.div`
     display: grid;
@@ -47,19 +48,22 @@ const StyledSubgrid = styled.div`
 `;
 
 const LimitedGrid = () => {
+    const pixels = useContext(PixelsContext);
     const [limitPixelPackages, setLimitPixelPackages] = useState([]);
 
+    //For setting only limited pixels
     useEffect(() => {
-        fetch("http://localhost:5000/api/pixels/limited")
-        .then(res => res.json())
-        .then(data => setLimitPixelPackages(data))
-    }, []);
+        if (pixels.length > 1) {
+            const limitPixels = pixels.filter((item: any) => item.isLimited === true);
+            setLimitPixelPackages(limitPixels);
+        }
+    }, [pixels])
 
     return(
         <StyledSubgrid>
             {limitPixelPackages.map((item: any) => {
                 return(
-                    item.isSold ? <a className="limited" href="/" style={{background: `${item.background}`}}><div></div></a> : <div className="empty limited"></div>
+                    item.isSold ? <a key={item._id} className="limited" href="/" style={{background: `${item.background}`}}><div></div></a> : <div key={item._id} className="empty limited"></div>
                 )
             })}
         </StyledSubgrid>
