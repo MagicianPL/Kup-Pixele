@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { PixelsContext } from '../context/PixelsContext';
 import LimitedGrid from './LimitedGrid';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const StyledGridContainer = styled.div`
     display: grid;
@@ -85,7 +86,7 @@ const PixelsGrid = () => {
 
     return(
         <>
-        {pixelPackages.length < 1 && <StyledLoadingInfo>Ładuję <span>milion pixeli</span> specjalnie dla Ciebie...<br />Poczekaj kilka sekund</StyledLoadingInfo>}
+        {pixelPackages.length < 1 && <StyledLoadingInfo>Ładuję <span>milion pixeli</span> specjalnie dla Ciebie...<br />Poczekaj kilka sekund<br /><ClipLoader color="#150140" size="30" /></StyledLoadingInfo>}
         {pixelPackages.length > 0 &&
             <>
             <StyledSoldInfo>Wykupione miejsca: {soldQty} / 10 000</StyledSoldInfo>
