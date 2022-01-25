@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 const StyledSubgrid = styled.div`
     display: grid;
-    background: red;
+    background: #FCC201;
+    border: 1px solid #FCC201;
     grid-column: 45/55;
     grid-row: 45/55;
     grid-template-columns: repeat(10, 1fr);

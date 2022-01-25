@@ -9,7 +9,7 @@ const StyledGridContainer = styled.div`
     margin: 0 auto;
     height: 100%;
     aspect-ratio: 1/1;
-    border: 1px solid red;
+    border: 1px solid #FCC201;
     grid-template-columns: repeat(100, 1fr);
     grid-template-rows: repeat(100, 1fr);
     margin-top: 20px;

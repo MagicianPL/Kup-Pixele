@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
+import Header from './components/Header';
 import PixelsGrid from './components/PixelsGrid';
 
 function App() {
   return (
     <div className="App">
-      <h1>Empty Project</h1>
-      <PixelsGrid />
+      <Header />
+      {/*<PixelsGrid />*/}
     </div>
   );
 }
