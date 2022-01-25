@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import Logo from './Logo';
+import Menu from './Menu';
 
 const StyledHeader = styled.header`
     width: 100%;
@@ -20,38 +22,7 @@ const StyledHeader = styled.header`
     }
 `;
 
-const StyledLogo = styled.div`
-    width: 90%;
-    max-width: 150px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    position: relative;
-    bottom: 10px;
 
-    div {
-        flex: 1;
-        aspect-ratio: 1/1;
-        background: red;
-    }
-
-    div:nth-child(1) {
-        background: green;
-    }
-
-    div:nth-child(2) {
-        background: yellow;
-    }
-
-    div:nth-child(3) {
-        background: brown;
-    }
-
-    div:nth-child(4) {
-        background: gray;
-    }
-`;
 
 const Header = () => {
     return(
@@ -59,12 +30,8 @@ const Header = () => {
             <h1>Kup Pixele</h1>
             <h2>Bądź częścią miliona pixeli!</h2>
             <h3>Bądź częścią historii...</h3>
-            <StyledLogo>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </StyledLogo>
+            <Logo />
+            <Menu />
         </StyledHeader>
     );
 };
