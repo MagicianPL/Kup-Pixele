@@ -33,13 +33,18 @@ const StyledUl = styled.ul`
     li:nth-child(5):hover {
         color: yellow;
     }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 `;
 
 const Menu = () => {
     return(
         <StyledUl>
             <li>Pixele</li>
-            <li>O co chodzi?</li>
+            <li><a href="#aboutPage">O co chodzi?</a></li>
             <li>Lista</li>
             <li>Kup Pixele</li>
             <li>Edycja Limitowana</li>

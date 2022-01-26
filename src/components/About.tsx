@@ -69,7 +69,7 @@ const StyledWrapper = styled.div`
 
 const About = () => {
     return(
-        <StyledWrapper>
+        <StyledWrapper id="aboutPage">
             <CenteredContainer>
                 <div className="info">
                     <div>
