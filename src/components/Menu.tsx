@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import {BsArrowRightCircleFill} from 'react-icons/bs';
 
 const StyledUl = styled.ul`
     width: 100%;
@@ -10,6 +11,50 @@ const StyledUl = styled.ul`
     display: flex;
     justify-content: space-around;
     font-size: 18px;
+
+    svg {
+        display: none;
+    }
+
+    @media (max-width: 699px) {
+        width: 60%;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        flex-direction: column;
+        background: #150140;
+        margin-top: -25px;
+        height: 200vh;
+        justify-content: flex-start;
+        align-items: flex-end;
+        padding: 45px 55px 20px 20px;
+        gap: 25px;
+        z-index: 6;
+        font-size: 25px;
+        border-left: 3px solid white;
+        transition: all 0.5s;
+
+        &.mobileMenuActive {
+            right: 0;
+        }
+
+        svg {
+            display: block;
+            font-size: 40px;
+            position: absolute;
+            top: 46px;
+            left: 25px;
+        }
+    }
+
+    @media (max-width: 545px) {
+        width: 80%;
+    }
+
+    @media (max-width: 400px) {
+        font-size: 22px;
+        width: 100%;
+    }
 
     li {
         cursor: pointer;
@@ -41,14 +86,21 @@ const StyledUl = styled.ul`
     }
 `;
 
-const Menu = () => {
+interface IProps {
+    showMobileNav: boolean
+    toggleNav: () => void
+}
+
+const Menu: React.FC<IProps> = ({showMobileNav, toggleNav}) => {
+
     return(
-        <StyledUl>
+        <StyledUl className={showMobileNav ? "mobileMenuActive" : undefined}>
             <li><Link to="/">Pixele</Link></li>
             <li><a href="#aboutPage">O co chodzi?</a></li>
             <li>Lista</li>
             <li>Kup Pixele</li>
             <li>Edycja Limitowana</li>
+            <BsArrowRightCircleFill onClick={toggleNav}/>
         </StyledUl>
     );
 };

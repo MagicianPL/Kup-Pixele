@@ -4,11 +4,11 @@ import { PixelsContext } from './PixelsContext';
 const PixelsProvider: React.FC = ({children}) => {
     const [pixelsArr, setPixelsArr] = useState([]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         fetch("http://localhost:5000/api/pixels/")
         .then(res => res.json())
         .then(data => setPixelsArr(data))
-    }, []);
+    }, []);*/
 
     return(
         <PixelsContext.Provider value={pixelsArr}>

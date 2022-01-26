@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import Logo from './Logo';
 import Menu from './Menu';
+import {GiHamburgerMenu} from 'react-icons/gi';
 
 const StyledHeader = styled.header`
     width: 100%;
@@ -24,18 +25,42 @@ const StyledHeader = styled.header`
     h3 {
         margin-bottom: 30px;
     }
+
+    .hamburgerIcon {
+        display: none;
+
+        @media (max-width: 699px) {
+            display: block;
+            margin: 20px auto 0 auto;
+            font-size: 51px;
+        }
+    }
 `;
 
 
 
 const Header = () => {
+    const [showMobileNav, setShowMobileNav] = useState(false);
+
+    //For toggling mobile navigation and prevent scrolling
+    const toggleNav = () => {
+        setShowMobileNav((prev) => !prev);
+
+        if(document.body.style.overflow === "hidden") {
+            document.body.style.overflow = "scroll";
+        } else {
+            document.body.style.overflow = "hidden";
+        }
+    };
+
     return(
         <StyledHeader>
             <h1>Kup Pixele</h1>
             <h2>Bądź częścią miliona pixeli!</h2>
             <h3>Bądź częścią historii...</h3>
             <Logo />
-            <Menu />
+            <GiHamburgerMenu className="hamburgerIcon" onClick={toggleNav} />
+            <Menu showMobileNav={showMobileNav} toggleNav={toggleNav} />
         </StyledHeader>
     );
 };
