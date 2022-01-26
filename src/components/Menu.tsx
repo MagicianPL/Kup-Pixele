@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const StyledUl = styled.ul`
     width: 100%;
@@ -43,7 +44,7 @@ const StyledUl = styled.ul`
 const Menu = () => {
     return(
         <StyledUl>
-            <li>Pixele</li>
+            <li><Link to="/">Pixele</Link></li>
             <li><a href="#aboutPage">O co chodzi?</a></li>
             <li>Lista</li>
             <li>Kup Pixele</li>

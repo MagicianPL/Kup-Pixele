@@ -17,8 +17,12 @@ const StyledHeader = styled.header`
         font-size: 60px;
     }
 
-    h1, h2, h3 {
+    h1, h2 {
         margin-bottom: 20px;
+    }
+
+    h3 {
+        margin-bottom: 30px;
     }
 `;
 
