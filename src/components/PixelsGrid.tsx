@@ -16,6 +16,10 @@ const StyledGridContainer = styled.div`
     grid-template-rows: repeat(100, 1fr);
     position: relative;
 
+    @media (max-width: 1002px) {
+        width: calc(100% - 24px);
+    }
+
     &::before {
         content: "";
         position: absolute;
@@ -49,10 +53,15 @@ const StyledGridContainer = styled.div`
 const StyledLoadingInfo = styled.h2`
     width: 100%;
     max-width: 1200px;
+    padding: 0 10px;
     margin: 0 auto 50vh auto;
     text-align: center;
     font-size: 28px;
     animation: loading 3s infinite;
+
+    @media (max-width: 500px) {
+        font-size: 24px;
+    }
 
     @keyframes loading {
         0% {
@@ -74,10 +83,19 @@ const StyledLoadingInfo = styled.h2`
 const StyledSoldInfo = styled.p`
     width: 100%;
     max-width: 1000px;
+    padding: 0 12px;
     margin: 0 auto 20px auto;
     font-size: 20px;
     font-weight: bold;
     text-align: right;
+
+    @media (max-width: 550px) {
+        text-align: center;
+    }
+
+    @media (max-width: 340px) {
+        font-size: 16px;
+    }
 `;
 
 const PixelsGrid = () => {

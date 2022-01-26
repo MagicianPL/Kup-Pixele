@@ -16,6 +16,16 @@ const StyledHeader = styled.header`
 
     h1 {
         font-size: 60px;
+
+        @media (max-width: 400px) {
+            font-size: 50px;
+        }
+    }
+
+    h2 {
+        @media (max-width: 400px) {
+            font-size: 18px;
+        }
     }
 
     h1, h2 {
@@ -24,6 +34,10 @@ const StyledHeader = styled.header`
 
     h3 {
         margin-bottom: 30px;
+
+        @media (max-width: 400px) {
+            font-size: 16px;
+        }
     }
 
     .hamburgerIcon {

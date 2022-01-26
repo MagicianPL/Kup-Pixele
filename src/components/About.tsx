@@ -24,17 +24,43 @@ const StyledWrapper = styled.div`
         display: flex;
         align-items: center;
 
+        @media (max-width: 600px) {
+            flex-direction: column;
+        }
+
         p {
             font-size: 20px;
             margin-bottom: 20px;
+
+            @media (max-width: 550px) {
+                text-align: center;
+            }
+
+            @media (max-width: 350px) {
+                margin-bottom: 30px;
+            }
+        }
+
+        p:nth-child(3) {
+            @media (max-width: 600px) {
+                padding-bottom: 25px;
+            }
         }
 
         div:nth-child(1) {
             width: 75%;
+
+            @media (max-width: 550px) {
+                width: 90%;
+            }
         }
 
          div:nth-child(2) {
             flex: 1;
+
+            @media (max-width: 600px) {
+                width: 75%;
+            }
         }
     }
 
@@ -47,13 +73,25 @@ const StyledWrapper = styled.div`
         flex-wrap: wrap;
         gap: 20px;
 
+        @media (max-width: 1050px) {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media (max-width: 400px) {
+            font-size: 17px;
+        }
+
         .step {
             display: flex;
             gap: 15px;
             align-items: center;
             max-width: 47%;
-            
             margin-bottom: 20px;
+
+            @media(max-width: 1050px) {
+                max-width: 525px;
+            }
 
             p {
                 flex: 1;
@@ -62,6 +100,10 @@ const StyledWrapper = styled.div`
 
             svg {
                 font-size: 60px;
+
+                @media (max-width: 400px) {
+                    font-size: 50px;
+                }
             }
         }
     }
