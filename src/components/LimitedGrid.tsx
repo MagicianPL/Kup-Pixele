@@ -37,12 +37,19 @@ const StyledSubgrid = styled.div`
     .limited {
         position: relative;
 
-        &:hover::before {
-            content: "Edycja Limitowana"
+        p {
             position: absolute;
             top: 0;
             left: 0;
-            z-index: 5;
+            font-size: 16px;
+            color: black;
+            visibility: hidden;
+            color: #150140;
+        }
+
+        &:hover p {
+            visibility: visible;
+            cursor: default;
         }
     }
 `;
@@ -63,7 +70,7 @@ const LimitedGrid = () => {
         <StyledSubgrid>
             {limitPixelPackages.map((item: any) => {
                 return(
-                    item.isSold ? <a key={item._id} className="limited" href="/" style={{background: `${item.background}`}}><div></div></a> : <div key={item._id} className="empty limited"></div>
+                    item.isSold ? <a key={item._id} className="limited" href="/" style={{background: `${item.background}`}}><div></div></a> : <div key={item._id} className="empty limited"><p>Edycja Limitowana</p></div>
                 )
             })}
         </StyledSubgrid>

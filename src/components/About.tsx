@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import CenteredContainer from './CenteredContainer';
 import Logo from './Logo';
+import StyledButton from './StyledButton';
 import {FaSquare, FaAt} from 'react-icons/fa';
 import {RiEditCircleFill} from 'react-icons/ri';
 import {GiGoldBar} from 'react-icons/gi';
@@ -12,6 +13,7 @@ const StyledWrapper = styled.div`
     min-height: 50vh;
     background: #150140;
     padding-top: 35px;
+    padding-bottom: 35px;
 
     h1 {
         text-align: center;
@@ -40,7 +42,7 @@ const StyledWrapper = styled.div`
         font-size: 20px;
         font-weight: bold;
         max-width: 1100px;
-        margin: 40px auto 0 auto;
+        margin: 40px auto 50px auto;
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
@@ -98,6 +100,7 @@ const About = () => {
                     <p>Zainwestuj, bądź właścicielem pixelowego miejsca, zostań członkiem społeczności!</p>
                     </div>
                 </div>
+                <StyledButton>Kup Pixele</StyledButton>
             </CenteredContainer>
         </StyledWrapper>
     );
