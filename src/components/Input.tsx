@@ -32,11 +32,11 @@ interface Props {
     placeholder?: string,
 }
 
-const Input: React.FC<Props> = ({id, label, value, onChange, type, placeholder}) => {
+const Input: React.FC<Props> = ({id, label, value, onChange, type, placeholder, name}) => {
     return(
         <StyledWrapper>
             <label htmlFor={id}>{label}</label>
-            <input id={id} value={value} onChange={onChange} type={type ? type : "text"} placeholder={placeholder} />
+            <input id={id} value={value} onChange={onChange} type={type ? type : "text"} placeholder={placeholder} name={name} />
         </StyledWrapper>
     );
 };

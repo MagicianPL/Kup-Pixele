@@ -22,15 +22,10 @@ const RegisterPage = () => {
     });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValues((prev) => {
-            return(
-                {
-                    ...prev,
-                    [e.currentTarget.name]: e.currentTarget.value,
-                }
-            )
+        setInputValues({
+            ...inputValues,
+            [e.target.name]: e.target.value,
         });
-        console.log(inputValues);
     }
     return(
         <StyledWrapper>
