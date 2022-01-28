@@ -27,16 +27,16 @@ interface Props {
     label: string,
     name?: string,
     value: string,
-    onClick: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void,
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) =>  void,
     type?: string,
     placeholder?: string,
 }
 
-const Input: React.FC<Props> = ({id, label, value, onClick, type, placeholder}) => {
+const Input: React.FC<Props> = ({id, label, value, onChange, type, placeholder}) => {
     return(
         <StyledWrapper>
             <label htmlFor={id}>{label}</label>
-            <input id={id} value={value} onClick={onClick} type={type ? type : "text"} placeholder={placeholder} />
+            <input id={id} value={value} onChange={onChange} type={type ? type : "text"} placeholder={placeholder} />
         </StyledWrapper>
     );
 };
