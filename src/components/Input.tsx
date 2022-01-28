@@ -19,6 +19,10 @@ const StyledWrapper = styled.div`
     input {
         font-size: 20px;
         padding: 5px 10px;
+
+        &:focus {
+            outline: 1px solid #150140;
+        }
     }
 `;
 
