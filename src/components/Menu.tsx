@@ -96,7 +96,7 @@ const Menu: React.FC<IProps> = ({showMobileNav, toggleNav}) => {
     return(
         <StyledUl className={showMobileNav ? "mobileMenuActive" : undefined}>
             <li><Link to="/">Pixele</Link></li>
-            <li><a href="#aboutPage">O co chodzi?</a></li>
+            <li><a href="/#aboutPage">O co chodzi?</a></li>
             <li>Lista</li>
             <li>Kup Pixele</li>
             <li>Edycja Limitowana</li>
