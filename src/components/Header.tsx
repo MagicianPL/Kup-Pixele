@@ -49,6 +49,36 @@ const StyledHeader = styled.header`
             font-size: 51px;
         }
     }
+
+    .userActions {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 1400px;
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 25px;
+        gap: 20px;
+        list-style: none;
+
+        @media (max-width: 900px) {
+            position: relative;
+            left: 0;
+            margin: 0 auto 50px auto;
+            transform: none;
+        }
+
+        li {
+            transition: all 0.4s;
+            cursor: pointer;
+
+            &:hover {
+                color: green;
+            }
+        }
+    }
 `;
 
 
@@ -69,6 +99,10 @@ const Header = () => {
 
     return(
         <StyledHeader>
+            <ul className="userActions">
+                <li>Zaloguj</li>
+                <li>Zarejestruj</li>
+            </ul>
             <h1>Kup Pixele</h1>
             <h2>Bądź częścią miliona pixeli!</h2>
             <h3>Bądź częścią historii...</h3>

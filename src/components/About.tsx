@@ -139,7 +139,7 @@ const About = () => {
                     </div>
                     <div className="step">
                     <GiGoldBar style={{color: "#FCC201"}} />
-                    <p>Zainwestuj, bądź właścicielem pixelowego miejsca, zostań członkiem społeczności!</p>
+                    <p>Zainwestuj, bądź właścicielem pixelowego miejsca, zostań członkiem społeczności!<br/>Miejsce kosztuje tylko 10&nbsp;złotych!</p>
                     </div>
                 </div>
                 <StyledButton>Kup Pixele</StyledButton>
