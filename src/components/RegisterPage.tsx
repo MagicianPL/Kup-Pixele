@@ -57,26 +57,32 @@ const RegisterPage = () => {
 
     const handleFormSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            const res = await fetch("http://localhost:5000/api/user/register", {
-                method: "POST",
-                body: JSON.stringify({
-                    login: inputValues.login,
-                    email: inputValues.email,
-                    password: inputValues.password,
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                    //'Content-Type': 'application/x-www-form-urlencoded',
-                  },
-            });
-            const data = await res.json();
-            if (!res.ok) {
-                return setError(data.message);
-            };
-            navigate("/");
-        } catch(err: any) {
-            setError(err.message);
+        if (!inputValues.login || !inputValues.email || !inputValues.password || !inputValues.confirmedPassword) {
+            setError("Wszystkie pola muszą być wypełnione");
+        } else if (inputValues.password !== inputValues.confirmedPassword) {
+            setError("Hasła nie są takie same");
+        } else {
+            try {
+                const res = await fetch("http://localhost:5000/api/user/register", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        login: inputValues.login,
+                        email: inputValues.email,
+                        password: inputValues.password,
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                        //'Content-Type': 'application/x-www-form-urlencoded',
+                      },
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    return setError(data.message);
+                };
+                navigate("/");
+            } catch(err: any) {
+                setError(err.message);
+            }
         }
     };
 
