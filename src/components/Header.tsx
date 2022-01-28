@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import Menu from './Menu';
 import {GiHamburgerMenu} from 'react-icons/gi';
@@ -78,6 +79,11 @@ const StyledHeader = styled.header`
                 color: green;
             }
         }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
     }
 `;
 
@@ -101,7 +107,7 @@ const Header = () => {
         <StyledHeader>
             <ul className="userActions">
                 <li>Zaloguj</li>
-                <li>Zarejestruj</li>
+                <li><Link to="/register">Zarejestruj</Link></li>
             </ul>
             <h1>Kup Pixele</h1>
             <h2>Bądź częścią miliona pixeli!</h2>
