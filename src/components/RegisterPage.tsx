@@ -79,7 +79,7 @@ const RegisterPage = () => {
                 if (!res.ok) {
                     return setError(data.message);
                 };
-                navigate("/");
+                navigate("/login&successregister");
             } catch(err: any) {
                 setError(err.message);
             }

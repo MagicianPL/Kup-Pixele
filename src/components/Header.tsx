@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from './Logo';
 import Menu from './Menu';
 import {GiHamburgerMenu} from 'react-icons/gi';
@@ -31,10 +31,12 @@ const StyledHeader = styled.header`
 
     h1, h2 {
         margin-bottom: 20px;
+        cursor: pointer;
     }
 
     h3 {
         margin-bottom: 30px;
+        cursor: pointer;
 
         @media (max-width: 400px) {
             font-size: 16px;
@@ -95,23 +97,30 @@ const Header = () => {
     //For toggling mobile navigation and prevent scrolling
     const toggleNav = () => {
         setShowMobileNav((prev) => !prev);
-
-        if(document.body.style.overflow === "hidden") {
+        //only on max-width: 699px - on desktop, mobile nav doesn't show, there is no need to prevent scrolling;
+        if(window.matchMedia("(max-width: 699px)").matches) {
+            if(document.body.style.overflow === "hidden") {
             document.body.style.overflow = "scroll";
         } else {
             document.body.style.overflow = "hidden";
         }
+        }
+    };
+
+    const navigate = useNavigate();
+    const redirectToHome = () => {
+        navigate("/");
     };
 
     return(
         <StyledHeader>
             <ul className="userActions">
-                <li>Zaloguj</li>
+                <li><Link to="/login">Zaloguj</Link></li>
                 <li><Link to="/register">Zarejestruj</Link></li>
             </ul>
-            <h1>Kup Pixele</h1>
-            <h2>Bądź częścią miliona pixeli!</h2>
-            <h3>Bądź częścią historii...</h3>
+            <h1 onClick={redirectToHome}>Kup Pixele</h1>
+            <h2 onClick={redirectToHome}>Bądź częścią miliona pixeli!</h2>
+            <h3 onClick={redirectToHome}>Bądź częścią historii...</h3>
             <Logo />
             <GiHamburgerMenu className="hamburgerIcon" onClick={toggleNav} />
             <Menu showMobileNav={showMobileNav} toggleNav={toggleNav} />

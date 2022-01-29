@@ -20,6 +20,7 @@ function App() {
             <Route path="/" element={<><PixelsGrid /><About /></>} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/login&successregister" element={<LoginPage />} />
           </Routes>
         </PixelsProvider>
       </BrowserRouter>
