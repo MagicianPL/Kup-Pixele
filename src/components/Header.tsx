@@ -134,6 +134,7 @@ const Header = () => {
             document.body.style.overflow = "hidden";
         }
     }, [showMobileNav]);
+    //////////////////////////////////////
 
     const navigate = useNavigate();
     const redirectToHome = () => {
