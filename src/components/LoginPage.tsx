@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CenteredContainer from './CenteredContainer';
 import Input from './Input';
@@ -42,7 +42,7 @@ const LoginPage = () => {
     const successRegister = pathname.split('&')[1];
     //----------------
 
-    const [error, showError] = useState("");
+    const [error, setError] = useState("");
 
     const [inputValues, setInputValues] = useState({
         email: "",
@@ -56,9 +56,31 @@ const LoginPage = () => {
         });
     };
 
-    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const navigate = useNavigate();
+    const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(inputValues);
+        
+        try {
+            const res = await fetch("http://localhost:5000/api/user/login", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        email: inputValues.email,
+                        password: inputValues.password,
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                        //'Content-Type': 'application/x-www-form-urlencoded',
+                      },
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    return setError(data.message);
+                };
+                console.log({success: true, user: data});
+                navigate("/");
+        } catch(err: any) {
+            setError(err.message);
+        };
     };
     return(
         <StyledWrapper>
