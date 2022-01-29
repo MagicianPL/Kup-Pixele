@@ -7,6 +7,7 @@ import PixelsGrid from './components/PixelsGrid';
 import About from './components/About';
 import RegisterPage from './components/RegisterPage';
 import LoginPage from './components/LoginPage';
+import ListOfPixelsPage from './components/ListOfPixelsPage';
 import {BrowserRouter,
   Routes,
   Route} from 'react-router-dom';
@@ -23,6 +24,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/login&successregister" element={<LoginPage />} />
+            <Route path="/pixelslist" element={<ListOfPixelsPage />} />
           </Routes>
         </PixelsProvider>
         </UserProvider>

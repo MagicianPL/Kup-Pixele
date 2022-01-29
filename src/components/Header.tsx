@@ -95,6 +95,11 @@ const StyledHeader = styled.header`
         padding-right: 25px;
         font-size: 14px;
         cursor: pointer;
+        transition: color 0.4s;
+
+        &:hover {
+            color: gray;
+        }
 
         @media (min-width: 901px) {
             position: absolute;
