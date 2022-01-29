@@ -15,17 +15,17 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <UserProvider>
         <Header />
         <PixelsProvider>
-        <UserProvider>
           <Routes>
             <Route path="/" element={<><PixelsGrid /><About /></>} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/login&successregister" element={<LoginPage />} />
           </Routes>
-        </UserProvider>
         </PixelsProvider>
+        </UserProvider>
       </BrowserRouter>
     </div>
   );

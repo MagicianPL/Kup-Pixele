@@ -78,7 +78,8 @@ const LoginPage = () => {
                 if (!res.ok) {
                     return setError(data.message);
                 };
-                setUser(data);
+                await setUser(data);
+                localStorage.setItem("user", JSON.stringify(data));
                 navigate("/");
         } catch(err: any) {
             setError(err.message);

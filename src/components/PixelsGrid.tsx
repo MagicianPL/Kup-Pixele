@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { PixelsContext } from '../context/PixelsContext';
 import LimitedGrid from './LimitedGrid';
 import ClipLoader from "react-spinners/ClipLoader";
-import { UserContext } from '../context/UserContext';
 
 const StyledGridContainer = styled.div`
     display: grid;
@@ -102,8 +101,6 @@ const StyledSoldInfo = styled.p`
 const PixelsGrid = () => {
     const pixelPackages = useContext(PixelsContext);
     const soldQty = pixelPackages.length > 0 ? pixelPackages.filter((item: any) => item.isSold === true).length : "";
-    const {user} = useContext(UserContext);
-    console.log(user);
 
     return(
         <>

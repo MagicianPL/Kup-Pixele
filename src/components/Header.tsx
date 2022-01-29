@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from './Logo';
 import Menu from './Menu';
 import {GiHamburgerMenu} from 'react-icons/gi';
+import { UserContext } from '../context/UserContext';
+import { handleSignOut } from '../helpers/handleSignOut';
 
 const StyledHeader = styled.header`
     width: 100%;
@@ -87,13 +89,30 @@ const StyledHeader = styled.header`
             color: inherit;
         }
     }
+
+    .signout {
+        text-align: right;
+        padding-right: 25px;
+        font-size: 14px;
+        cursor: pointer;
+
+        @media (min-width: 901px) {
+            position: absolute;
+            top: 50px;
+            right: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1400px;
+        }
+    }
 `;
 
 
 
 const Header = () => {
     const [showMobileNav, setShowMobileNav] = useState(false);
-
+    const {user, setUser} = useContext(UserContext);
     //For toggling mobile navigation and prevent scrolling
     const toggleNav = () => {
         setShowMobileNav((prev) => !prev);
@@ -114,9 +133,16 @@ const Header = () => {
 
     return(
         <StyledHeader>
+            {user && <p onClick={() => {handleSignOut(setUser, navigate)}} className="signout">Wyloguj</p>}
             <ul className="userActions">
-                <li><Link to="/login">Zaloguj</Link></li>
-                <li><Link to="/register">Zarejestruj</Link></li>
+                {user ? <>
+                        <li>{user.login}</li>
+                        <li>Twoje Pixele</li>
+                        </>
+                :   <>
+                    <li><Link to="/login">Zaloguj</Link></li>
+                    <li><Link to="/register">Zarejestruj</Link></li>
+                    </>}
             </ul>
             <h1 onClick={redirectToHome}>Kup Pixele</h1>
             <h2 onClick={redirectToHome}>Bądź częścią miliona pixeli!</h2>
