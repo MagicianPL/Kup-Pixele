@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import PixelsProvider from './context/PixelsProvider';
+import UserProvider from './context/UserProvider';
 import Header from './components/Header';
 import PixelsGrid from './components/PixelsGrid';
 import About from './components/About';
@@ -16,12 +17,14 @@ function App() {
       <BrowserRouter>
         <Header />
         <PixelsProvider>
+        <UserProvider>
           <Routes>
             <Route path="/" element={<><PixelsGrid /><About /></>} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/login&successregister" element={<LoginPage />} />
           </Routes>
+        </UserProvider>
         </PixelsProvider>
       </BrowserRouter>
     </div>

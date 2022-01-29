@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { UserContext } from '../context/UserContext';
 import CenteredContainer from './CenteredContainer';
 import Input from './Input';
 import StyledButton from './StyledButton';
@@ -57,6 +58,7 @@ const LoginPage = () => {
     };
 
     const navigate = useNavigate();
+    const {setUser} = useContext(UserContext);
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
@@ -76,7 +78,7 @@ const LoginPage = () => {
                 if (!res.ok) {
                     return setError(data.message);
                 };
-                console.log({success: true, user: data});
+                setUser(data);
                 navigate("/");
         } catch(err: any) {
             setError(err.message);
@@ -90,7 +92,7 @@ const LoginPage = () => {
             <form onSubmit={handleFormSubmit}>
             <Input id="email" label="Adres E-mail" name="email" value={inputValues.email} onChange={handleInputChange} placeholder="Twój e-mail" type="email" />
             <Input id="password" label="Hasło" name="password" value={inputValues.password} onChange={handleInputChange} placeholder="Wpisz hasło" type="password" />
-            <p className="error">Hasła do siebie nie pasują</p>
+            {error && <p className="error">{error}</p>}
             <StyledButton primary={true}>Zaloguj</StyledButton>
             </form>
         </CenteredContainer>
