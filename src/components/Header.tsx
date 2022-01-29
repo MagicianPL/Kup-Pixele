@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from './Logo';
@@ -118,18 +118,22 @@ const StyledHeader = styled.header`
 const Header = () => {
     const [showMobileNav, setShowMobileNav] = useState(false);
     const {user, setUser} = useContext(UserContext);
+
     //For toggling mobile navigation and prevent scrolling
     const toggleNav = () => {
-        setShowMobileNav((prev) => !prev);
+        console.log(showMobileNav);
         //only on max-width: 699px - on desktop, mobile nav doesn't show, there is no need to prevent scrolling;
         if(window.matchMedia("(max-width: 699px)").matches) {
-            if(document.body.style.overflow === "hidden") {
+            setShowMobileNav(!showMobileNav);
+        }
+    };
+    useEffect(() => {
+        if(!showMobileNav) {
             document.body.style.overflow = "scroll";
         } else {
             document.body.style.overflow = "hidden";
         }
-        }
-    };
+    }, [showMobileNav]);
 
     const navigate = useNavigate();
     const redirectToHome = () => {
