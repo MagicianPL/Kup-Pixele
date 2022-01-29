@@ -9,6 +9,7 @@ import RegisterPage from './components/RegisterPage';
 import LoginPage from './components/LoginPage';
 import ListOfPixelsPage from './components/ListOfPixelsPage';
 import UserUpdatePage from './components/UserUpdatePage';
+import AllSoldPixelsList from './components/AllSoldPixelsList';
 import {BrowserRouter,
   Routes,
   Route} from 'react-router-dom';
@@ -27,6 +28,7 @@ function App() {
             <Route path="/login&successregister" element={<LoginPage />} />
             <Route path="/user" element={<UserUpdatePage />} />
             <Route path="/pixelslist" element={<ListOfPixelsPage />} />
+            <Route path="/soldList" element={<AllSoldPixelsList />} />
           </Routes>
         </PixelsProvider>
         </UserProvider>
