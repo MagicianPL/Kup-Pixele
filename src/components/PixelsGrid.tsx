@@ -101,6 +101,7 @@ const StyledSoldInfo = styled.p`
 const PixelsGrid = () => {
     const pixelPackages = useContext(PixelsContext);
     const soldQty = pixelPackages.length > 0 ? pixelPackages.filter((item: any) => item.isSold === true).length : "";
+    
 
     return(
         <>

@@ -97,7 +97,7 @@ const Menu: React.FC<IProps> = ({showMobileNav, toggleNav}) => {
         <StyledUl className={showMobileNav ? "mobileMenuActive" : undefined}>
             <li onClick={()=> toggleNav()}><Link to="/">Pixele</Link></li>
             <li onClick={()=> toggleNav()}><a href="/#aboutPage">O co chodzi?</a></li>
-            <li onClick={()=> toggleNav()}>Lista</li>
+            <li onClick={()=> toggleNav()}><Link to="/">Lista</Link></li>
             <li onClick={()=> toggleNav()}>Kup Pixele</li>
             <li onClick={()=> toggleNav()}>Edycja Limitowana</li>
             <BsArrowRightCircleFill onClick={toggleNav}/>

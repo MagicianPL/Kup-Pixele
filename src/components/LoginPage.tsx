@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { UserContext } from '../context/UserContext';
 import CenteredContainer from './CenteredContainer';
@@ -57,7 +57,6 @@ const LoginPage = () => {
         });
     };
 
-    const navigate = useNavigate();
     const {setUser} = useContext(UserContext);
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -80,7 +79,8 @@ const LoginPage = () => {
                 };
                 await setUser(data);
                 localStorage.setItem("user", JSON.stringify(data));
-                navigate("/");
+                //redirecting to homepage with refreshing (and get data from backend in PixelsContext one more time with login)
+                window.location.href="/";
         } catch(err: any) {
             setError(err.message);
         };

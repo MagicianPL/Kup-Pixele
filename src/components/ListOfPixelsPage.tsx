@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {PixelsContext} from '../context/PixelsContext';
 import styled from 'styled-components';
 import CenteredContainer from './CenteredContainer';
+import StyledButton from './StyledButton';
 import { UserContext } from '../context/UserContext';
 
 const StyledWrapper = styled.div`
@@ -11,16 +12,30 @@ const StyledWrapper = styled.div`
         color: #150140;
         margin-bottom: 30px;
         text-align: center;
+
+        @media (max-width: 420px) {
+            font-size: 26px;
+        }
     }
 
     h2 {
         text-align: left;
         margin-bottom: 40px;
         font-size: 22px;
+        display: flex;
+
+        @media (max-width: 750px) {
+            flex-direction: column;
+        }
 
         span {
             color: #FCC201;
             margin-left: 30px;
+
+            @media (max-width: 750px) {
+                margin-left: 0;
+                margin-top: 12px;
+            }
         }
     }
 
@@ -39,6 +54,10 @@ const StyledWrapper = styled.div`
         transition: all 0.4s;
         cursor: pointer;
 
+        @media (max-width: 750px) {
+            border: 3px solid #150140;
+        }
+
         &:hover {
             border: 3px solid #150140;
         }
@@ -55,6 +74,24 @@ const StyledWrapper = styled.div`
             color: #FCC201;
         }
     }
+
+    .loading {
+        animation: loading 3s infinite;
+    }
+
+    @keyframes loading {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(0.8);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
 `
 
 const ListOfPixelsPage = () => {
@@ -62,15 +99,26 @@ const ListOfPixelsPage = () => {
     const {user} = useContext(UserContext);
     const id = user ? user._id : null;
 
-    const buyedPlaces = id ? wholeList.filter((item: any) => item.owner === id) : [];
-    const limitedPlaces = buyedPlaces.length > 0 ? buyedPlaces.filter((place: any) => place.isLimited === true) : [];
+    const [buyedPlaces, setBuyedPlaces] = useState<any>(null);
+
+    useEffect(() => {
+        if(id && wholeList.length > 0) {
+            setBuyedPlaces(wholeList.filter((item: any) => item.owner === id));
+        }
+    }, [id, wholeList]);
+
+    const limitedPlaces = buyedPlaces !== null ? buyedPlaces.length > 0 ? buyedPlaces.filter((place: any) => place.isLimited === true) : [] : [];
 
     return(
     <StyledWrapper>
         <CenteredContainer>
-            <h1>Twoje miejsca (pixele)</h1>
-            <h2>Wykupione miejsca: {buyedPlaces.length} <span>Edycja Limitowana: {limitedPlaces.length}</span></h2>
-            <ul>
+            {buyedPlaces === null && <h1 className="loading">Ładowanie...</h1>}
+            {buyedPlaces !== null ?
+            buyedPlaces.length > 0 ?
+            <>
+                <h1>Twoje miejsca (pixele)</h1>
+                <h2 className="info">Wykupione miejsca: {buyedPlaces.length} <span>Edycja Limitowana: {limitedPlaces.length}</span></h2>
+                <ul>
                 {buyedPlaces.map((item: any) => {
                     return(
                         <li key={item.number} className="place">
@@ -82,6 +130,11 @@ const ListOfPixelsPage = () => {
                     )
                 })}
             </ul>
+            </> :
+            <>
+            <h1>W tej chwili nie masz wykupionych miejsc</h1>
+            <StyledButton primary>Kup Pixele</StyledButton>
+            </> : null}
         </CenteredContainer>
     </StyledWrapper>
     );

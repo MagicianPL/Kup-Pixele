@@ -142,7 +142,7 @@ const Header = () => {
             <ul className="userActions">
                 {user ? <>
                         <li>{user.login}</li>
-                        <li>Twoje Pixele</li>
+                        <li><Link to="/pixelslist">Twoje Pixele</Link></li>
                         </>
                 :   <>
                     <li><Link to="/login">Zaloguj</Link></li>
