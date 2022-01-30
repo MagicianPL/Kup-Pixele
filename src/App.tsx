@@ -10,6 +10,7 @@ import LoginPage from './components/LoginPage';
 import ListOfPixelsPage from './components/ListOfPixelsPage';
 import UserUpdatePage from './components/UserUpdatePage';
 import AllSoldPixelsList from './components/AllSoldPixelsList';
+import PlaceDetails from './components/PlaceDetails';
 import {BrowserRouter,
   Routes,
   Route} from 'react-router-dom';
@@ -29,6 +30,7 @@ function App() {
             <Route path="/user" element={<UserUpdatePage />} />
             <Route path="/pixelslist" element={<ListOfPixelsPage />} />
             <Route path="/soldList" element={<AllSoldPixelsList />} />
+            <Route path="/place/edit/:id" element={<PlaceDetails />} />
           </Routes>
         </PixelsProvider>
         </UserProvider>

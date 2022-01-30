@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
+import {Link} from 'react-router-dom';
 import {PixelsContext} from '../context/PixelsContext';
 import styled from 'styled-components';
 import CenteredContainer from './CenteredContainer';
-import StyledButton from './StyledButton';
 import { UserContext } from '../context/UserContext';
+import StyledButton from './StyledButton';
 
 const StyledWrapper = styled.div`
     width: 100%;
@@ -73,6 +74,18 @@ const StyledWrapper = styled.div`
             text-align: center;
             color: #FCC201;
         }
+
+        .break {
+            @media (max-width: 731px) {
+                width: 100%;
+            }
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            margin: 0 0 0 auto;
+        }
     }
 
     .loading {
@@ -92,7 +105,12 @@ const StyledWrapper = styled.div`
             transform: scale(1);
         }
     }
-`
+`;
+
+const StyledEditButton = styled(StyledButton)`
+    font-size: 20px;
+    margin: 0;
+`;
 
 const ListOfPixelsPage = () => {
     const wholeList = useContext(PixelsContext);
@@ -125,6 +143,8 @@ const ListOfPixelsPage = () => {
                             <div style={{background: `${item.background}`}}></div>
                             <p>Numer miejsca: {item.number}</p>
                             <p>Adres: https://www.testtakitamtest.pl</p>
+                            <span className="break"></span>
+                            <Link to={`/place/edit/${item._id}`}><StyledEditButton>Edytuj</StyledEditButton></Link>
                             {item.isLimited && <p className="limited">EDYCJA LIMITOWANA</p>}
                         </li>
                     )
