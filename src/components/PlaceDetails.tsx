@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import CenteredContainer from './CenteredContainer';
 import Input from './Input';
@@ -38,6 +38,25 @@ const StyledWrapper = styled.div`
 
 const PlaceDetails = () => {
     const navigate = useNavigate();
+    //id of place
+    const {id} = useParams();
+
+    const [place, setPlace] = useState<any>(null);
+    const [error, setError] = useState("");
+    console.log(place)
+
+    //For fetching place from DB
+    useEffect(() => {
+        const fetchPlace = async() => {
+            const res = await fetch(`http://localhost:5000/api/pixels/${id}`)
+            const data = await res.json();
+            if(!res.ok) {
+                return setError(data.message);
+            };
+            setPlace(data);
+        };
+        fetchPlace();
+    }, [id]);
 
     const [inputValues, setInputValues] = useState({
         login: "",
@@ -45,8 +64,6 @@ const PlaceDetails = () => {
         password: "",
         confirmedPassword: "",
     });
-
-    const [error, setError] = useState("");
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValues({
@@ -89,6 +106,10 @@ const PlaceDetails = () => {
     return(
         <StyledWrapper>
         <CenteredContainer>
+            {error && <h1>{error}</h1>}
+            {place === null ? !error ? <h1>Ładowanie</h1> : null : null}
+            {place &&
+            <>
             <h1>Place</h1>
             <form onSubmit={handleFormSubmit}>
             <Input id="login" label="Login" name="login" value={inputValues.login} onChange={handleInputChange} placeholder="Twój login" />
@@ -98,6 +119,7 @@ const PlaceDetails = () => {
             {error && <p className="error">{error}</p>}
             <StyledButton primary={true}>Zarejestruj</StyledButton>
             </form>
+            </>}
         </CenteredContainer>
     </StyledWrapper>
     );
