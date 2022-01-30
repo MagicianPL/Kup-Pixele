@@ -48,7 +48,7 @@ const RegisterPage = () => {
 
     const [error, setError] = useState("");
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         setInputValues({
             ...inputValues,
             [e.target.name]: e.target.value,

@@ -91,6 +91,11 @@ const StyledWrapper = styled.div`
             transform: scale(1);
         }
     }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 `;
 
 const PlaceDetails = () => {
@@ -100,6 +105,7 @@ const PlaceDetails = () => {
     const {user: {_id: userId}} = useContext(UserContext);
 
     const [place, setPlace] = useState<any>(null);
+    const [placeError, setPlaceError] = useState<any>("");
     const [error, setError] = useState("");
     const [successUpdate, setSuccessUpdate] = useState<any>(place);
     const [successInfo, setSuccessInfo] = useState("");
@@ -110,7 +116,7 @@ const PlaceDetails = () => {
             const res = await fetch(`http://localhost:5000/api/pixels/${id}`)
             const data = await res.json();
             if(!res.ok) {
-                return setError(data.message);
+                return setPlaceError(data.message);
             };
             setPlace(data);
         };
@@ -135,7 +141,7 @@ const PlaceDetails = () => {
         }
     }, [place]);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         setInputValues({
             ...inputValues,
             [e.target.name]: e.target.value,
@@ -169,6 +175,8 @@ const PlaceDetails = () => {
                 };
                 setSuccessUpdate(data);
                 setSuccessInfo("Zaktualizowano");
+                setError("");
+                setPlaceError("");
             } catch(err: any) {
                 setError(err.message);
             }
@@ -178,20 +186,20 @@ const PlaceDetails = () => {
     return(
         <StyledWrapper>
         <CenteredContainer>
-            {error && <h1>{error}</h1>}
+            {placeError && <h1>{placeError}</h1>}
             {place === null ? !error ? <h1 className="loading">Ładowanie</h1> : null : null}
             {place &&
             <>
             {place.isLimited && <p className="limited">Edycja Limitowana</p>}
             <h1>Miejsce nr {place.number} <div style={{background: `${place.background}`}}></div></h1>
-            <h2>Nazwa: <span>Jakaś testowa nazwa firmy</span></h2>
-            <h3>Adres: <span style={{maxWidth: "100%", wordBreak: "break-all"}}>https://www.jakaśtestowastrona.pl</span></h3>
-            <p>Opis: Jakiś tam opis firmy. Najlepsza firma, sprzedajemy mleko. Bla bla bla. Wejdź i zobacz</p>
+            <h2>Nazwa: <span>{place.name}</span></h2>
+            <h3>Adres: <span style={{maxWidth: "100%", wordBreak: "break-all"}}><a href={place.url} target="_blank" rel="noreferrer">{place.url}</a></span></h3>
+            <p>{place.description}</p>
             {place.owner === userId &&
                 <form onSubmit={handleFormSubmit}>
                 <Input id="name" label="Nazwa" name="name" value={inputValues.name} onChange={handleInputChange} />
                 <Input id="url" label="Adres URL" name="url" value={inputValues.url} onChange={handleInputChange} />
-                <Input id="description" label="Opis" name="description" value={inputValues.description} onChange={handleInputChange} />
+                <Input id="description" label="Opis" name="description" value={inputValues.description} onChange={handleInputChange} textarea={true} />
                 <Input id="background" name="background" label="Kolor (HEX Code)" value={inputValues.background} onChange={handleInputChange} />
                 <a href="https://htmlcolorcodes.com/" target="_blank" rel="noreferrer">Generator kolorów</a>
                 {error && <p className="error">{error}</p>}

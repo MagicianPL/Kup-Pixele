@@ -16,13 +16,17 @@ const StyledWrapper = styled.div`
         font-weight: bold;
     }
 
-    input {
+    input, textarea {
         font-size: 20px;
         padding: 5px 10px;
 
         &:focus {
             outline: 1px solid #150140;
         }
+    }
+
+    textarea {
+        min-height: 100px;
     }
 `;
 
@@ -31,17 +35,26 @@ interface Props {
     label: string,
     name?: string,
     value: string,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) =>  void,
+    onChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void,
     type?: string,
     placeholder?: string,
+    textarea?: boolean
 }
 
-const Input: React.FC<Props> = ({id, label, value, onChange, type, placeholder, name}) => {
+const Input: React.FC<Props> = ({id, label, value, onChange, type, placeholder, name, textarea}) => {
+    console.log(textarea);
     return(
-        <StyledWrapper>
+        textarea ?
+            <StyledWrapper>
             <label htmlFor={id}>{label}</label>
-            <input id={id} value={value} onChange={onChange} type={type ? type : "text"} placeholder={placeholder} name={name} />
+            <textarea id={id} value={value} onChange={onChange} placeholder={placeholder} name={name}></textarea>
         </StyledWrapper>
+        :
+        <StyledWrapper>
+        <label htmlFor={id}>{label}</label>
+        <input id={id} value={value} onChange={onChange} type={type ? type : "text"} placeholder={placeholder} name={name} />
+        </StyledWrapper>
+        
     );
 };
 
