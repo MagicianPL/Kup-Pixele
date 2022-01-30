@@ -144,7 +144,7 @@ const ListOfPixelsPage = () => {
                             <p>Numer miejsca: {item.number}</p>
                             <p>Adres: https://www.testtakitamtest.pl</p>
                             <span className="break"></span>
-                            <Link to={`/place/edit/${item._id}`}><StyledEditButton>Edytuj</StyledEditButton></Link>
+                            <Link to={`/place/${item._id}`}><StyledEditButton>Edytuj</StyledEditButton></Link>
                             {item.isLimited && <p className="limited">EDYCJA LIMITOWANA</p>}
                         </li>
                     )

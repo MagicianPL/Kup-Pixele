@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { UserContext } from '../context/UserContext';
 import CenteredContainer from './CenteredContainer';
 import Input from './Input';
 import StyledButton from './StyledButton';
@@ -9,13 +10,37 @@ const StyledWrapper = styled.div`
     width: 100%;
     padding-bottom: 40px;
 
-    h1, h2 {
+    h1, h2, h3, p {
         color: #150140;
         text-align: center;
         margin-bottom: 25px;
     }
 
+    h1, h2, h3 {
+        @media (max-width: 500px) {
+            display: flex;
+            flex-direction: column;
+        }
+
+        span {
+            @media (max-width: 400px) {
+                font-size: 16px;
+            }
+        }
+    }
+
     h1 {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+
+        div {
+            width: 50px;
+            height: 100%;
+            aspect-ratio: 1/1;
+        }
+
         @media (max-width: 430px) {
             font-size: 26px;
         }
@@ -27,6 +52,14 @@ const StyledWrapper = styled.div`
         }
     }
 
+    p {
+        font-size: 18px;
+
+        &.limited {
+            color: #FCC201;
+        }
+    }
+
     .error {
         font-weight: bold;
         color: red;
@@ -34,16 +67,35 @@ const StyledWrapper = styled.div`
         margin-bottom: 15px;
         font-size: 20px;
     }
+
+    .loading {
+        animation: loading 3s infinite;
+    }
+
+    @keyframes loading {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(0.8);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
 `;
 
 const PlaceDetails = () => {
     const navigate = useNavigate();
     //id of place
     const {id} = useParams();
+    //user id
+    const {user: {_id: userId}} = useContext(UserContext);
 
     const [place, setPlace] = useState<any>(null);
     const [error, setError] = useState("");
-    console.log(place)
 
     //For fetching place from DB
     useEffect(() => {
@@ -107,18 +159,24 @@ const PlaceDetails = () => {
         <StyledWrapper>
         <CenteredContainer>
             {error && <h1>{error}</h1>}
-            {place === null ? !error ? <h1>Ładowanie</h1> : null : null}
+            {place === null ? !error ? <h1 className="loading">Ładowanie</h1> : null : null}
             {place &&
             <>
-            <h1>Place</h1>
-            <form onSubmit={handleFormSubmit}>
-            <Input id="login" label="Login" name="login" value={inputValues.login} onChange={handleInputChange} placeholder="Twój login" />
-            <Input id="email" label="Adres E-mail" name="email" value={inputValues.email} onChange={handleInputChange} placeholder="Twój e-mail" type="email" />
-            <Input id="password" label="Hasło" name="password" value={inputValues.password} onChange={handleInputChange} type="password" />
-            <Input id="confirmedPassword" name="confirmedPassword" label="Powtórz hasło" value={inputValues.confirmedPassword} onChange={handleInputChange} type="password" />
-            {error && <p className="error">{error}</p>}
-            <StyledButton primary={true}>Zarejestruj</StyledButton>
-            </form>
+            <p className="limited">Edycja Limitowana</p>
+            <h1>Miejsce nr {place.number} <div style={{background: `${place.background}`}}></div></h1>
+            <h2>Nazwa: <span>Jakaś testowa nazwa firmy</span></h2>
+            <h3>Adres: <span style={{maxWidth: "100%", wordBreak: "break-all"}}>https://www.jakaśtestowastrona.pl</span></h3>
+            <p>Opis: Jakiś tam opis firmy. Najlepsza firma, sprzedajemy mleko. Bla bla bla. Wejdź i zobacz</p>
+            {place.owner === userId &&
+                <form onSubmit={handleFormSubmit}>
+                <Input id="name" label="Nazwa" name="name" value={inputValues.login} onChange={handleInputChange} />
+                <Input id="url" label="Adres URL" name="url" value={inputValues.email} onChange={handleInputChange} />
+                <Input id="description" label="Opis" name="description" value={inputValues.password} onChange={handleInputChange} />
+                <Input id="background" name="background" label="Kolor" value={inputValues.confirmedPassword} onChange={handleInputChange} />
+                {error && <p className="error">{error}</p>}
+                <StyledButton primary={true}>Zmień dane</StyledButton>
+                </form>
+            }
             </>}
         </CenteredContainer>
     </StyledWrapper>

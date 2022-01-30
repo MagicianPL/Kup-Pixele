@@ -30,7 +30,7 @@ function App() {
             <Route path="/user" element={<UserUpdatePage />} />
             <Route path="/pixelslist" element={<ListOfPixelsPage />} />
             <Route path="/soldList" element={<AllSoldPixelsList />} />
-            <Route path="/place/edit/:id" element={<PlaceDetails />} />
+            <Route path="/place/:id" element={<PlaceDetails />} />
           </Routes>
         </PixelsProvider>
         </UserProvider>

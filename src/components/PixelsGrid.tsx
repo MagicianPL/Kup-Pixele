@@ -24,7 +24,7 @@ const StyledGridContainer = styled.div`
         content: "";
         position: absolute;
         inset: 0;
-        background-image: url("images/earth.jpg");
+        background-image: url("/images/earth.jpg");
         background-size: cover;
         opacity: 0.5;
         z-index: -1;

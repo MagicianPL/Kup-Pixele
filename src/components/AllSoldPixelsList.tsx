@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {PixelsContext} from '../context/PixelsContext';
 import styled from 'styled-components';
 import CenteredContainer from './CenteredContainer';
@@ -120,12 +121,12 @@ const AllSoldPixelsList = () => {
                 <ul>
                 {soldPlaces.map((item: any) => {
                     return(
-                        <li key={item.number} className="place">
+                        <Link to={`/place/${item._id}`}><li key={item.number} className="place">
                             <div style={{background: `${item.background}`}}></div>
                             <p>Numer miejsca: {item.number}</p>
                             <p>Adres: https://www.testtakitamtest.pl</p>
                             { item.isLimited && <p className="limited">EDYCJA LIMITOWANA</p> }
-                        </li>
+                        </li></Link>
                     )
                 })}
             </ul>

@@ -94,11 +94,14 @@ const StyledHeader = styled.header`
         text-align: right;
         padding-right: 25px;
         font-size: 14px;
-        cursor: pointer;
-        transition: color 0.4s;
 
-        &:hover {
-            color: gray;
+        span {
+            cursor: pointer;
+            transition: color 0.4s;
+
+            &:hover {
+                color: gray;
+            }
         }
 
         @media (min-width: 901px) {
@@ -111,6 +114,11 @@ const StyledHeader = styled.header`
             max-width: 1400px;
         }
     }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 `;
 
 
@@ -118,6 +126,7 @@ const StyledHeader = styled.header`
 const Header = () => {
     const [showMobileNav, setShowMobileNav] = useState(false);
     const {user, setUser} = useContext(UserContext);
+    const navigate = useNavigate();
 
     //For toggling mobile navigation and prevent scrolling
     const toggleNav = () => {
@@ -136,14 +145,9 @@ const Header = () => {
     }, [showMobileNav]);
     //////////////////////////////////////
 
-    const navigate = useNavigate();
-    const redirectToHome = () => {
-        navigate("/");
-    };
-
     return(
         <StyledHeader>
-            {user && <p onClick={() => {handleSignOut(setUser, navigate)}} className="signout">Wyloguj</p>}
+            {user && <p className="signout"><span onClick={() => {handleSignOut(setUser, navigate)}}>Wyloguj</span></p>}
             <ul className="userActions">
                 {user ? <>
                         <li><Link to="/user">{user.login}</Link></li>
@@ -154,9 +158,9 @@ const Header = () => {
                     <li><Link to="/register">Zarejestruj</Link></li>
                     </>}
             </ul>
-            <h1 onClick={redirectToHome}>Kup Pixele</h1>
-            <h2 onClick={redirectToHome}>Bądź częścią miliona pixeli!</h2>
-            <h3 onClick={redirectToHome}>Bądź częścią historii...</h3>
+            <Link to="/"><h1>Kup Pixele</h1></Link>
+            <Link to="/"><h2>Bądź częścią miliona pixeli!</h2></Link>
+            <Link to="/"><h3>Bądź częścią historii...</h3></Link>
             <Logo />
             <GiHamburgerMenu className="hamburgerIcon" onClick={toggleNav} />
             <Menu showMobileNav={showMobileNav} toggleNav={toggleNav} />
