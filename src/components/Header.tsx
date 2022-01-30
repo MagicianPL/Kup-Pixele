@@ -146,7 +146,7 @@ const Header = () => {
             {user && <p onClick={() => {handleSignOut(setUser, navigate)}} className="signout">Wyloguj</p>}
             <ul className="userActions">
                 {user ? <>
-                        <li>{user.login}</li>
+                        <li><Link to="/user">{user.login}</Link></li>
                         <li><Link to="/pixelslist">Twoje Pixele</Link></li>
                         </>
                 :   <>

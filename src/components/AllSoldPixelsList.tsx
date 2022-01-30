@@ -115,7 +115,7 @@ const AllSoldPixelsList = () => {
             {loadingData && <h1 className="loading">Ładowanie...</h1>}
             {!loadingData ? soldPlaces.length > 0 ?
             <>
-                <h1>Twoje miejsca (pixele)</h1>
+                <h1>Lista wykupionych miejsc</h1>
                 <h2 className="info">Wykupione miejsca: {soldPlaces.length}</h2>
                 <ul>
                 {soldPlaces.map((item: any) => {
@@ -124,7 +124,7 @@ const AllSoldPixelsList = () => {
                             <div style={{background: `${item.background}`}}></div>
                             <p>Numer miejsca: {item.number}</p>
                             <p>Adres: https://www.testtakitamtest.pl</p>
-                            <p className="limited">EDYCJA LIMITOWANA</p>
+                            { item.isLimited && <p className="limited">EDYCJA LIMITOWANA</p> }
                         </li>
                     )
                 })}

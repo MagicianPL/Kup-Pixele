@@ -125,7 +125,7 @@ const ListOfPixelsPage = () => {
                             <div style={{background: `${item.background}`}}></div>
                             <p>Numer miejsca: {item.number}</p>
                             <p>Adres: https://www.testtakitamtest.pl</p>
-                            <p className="limited">EDYCJA LIMITOWANA</p>
+                            {item.isLimited && <p className="limited">EDYCJA LIMITOWANA</p>}
                         </li>
                     )
                 })}
