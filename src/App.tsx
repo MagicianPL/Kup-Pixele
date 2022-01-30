@@ -5,12 +5,15 @@ import UserProvider from './context/UserProvider';
 import Header from './components/Header';
 import PixelsGrid from './components/PixelsGrid';
 import About from './components/About';
+import BuyPlace from './components/BuyPlace';
+import LimitedEdition from './components/LimitedEdition';
 import RegisterPage from './components/RegisterPage';
 import LoginPage from './components/LoginPage';
 import ListOfPixelsPage from './components/ListOfPixelsPage';
 import UserUpdatePage from './components/UserUpdatePage';
 import AllSoldPixelsList from './components/AllSoldPixelsList';
 import PlaceDetails from './components/PlaceDetails';
+import LoggedRoute from './components/LoggedRoute';
 import {BrowserRouter,
   Routes,
   Route} from 'react-router-dom';
@@ -24,11 +27,13 @@ function App() {
         <PixelsProvider>
           <Routes>
             <Route path="/" element={<><PixelsGrid /><About /></>} />
+            <Route path="/buy" element={<BuyPlace />} />
+            <Route path="/limited" element={<LimitedEdition />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/login&successregister" element={<LoginPage />} />
-            <Route path="/user" element={<UserUpdatePage />} />
-            <Route path="/pixelslist" element={<ListOfPixelsPage />} />
+            <Route path="/user" element={<LoggedRoute><UserUpdatePage /></LoggedRoute>} />
+            <Route path="/pixelslist" element={<LoggedRoute><ListOfPixelsPage /></LoggedRoute>} />
             <Route path="/soldList" element={<AllSoldPixelsList />} />
             <Route path="/place/:id" element={<PlaceDetails />} />
           </Routes>
