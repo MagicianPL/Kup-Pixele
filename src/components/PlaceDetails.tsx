@@ -60,6 +60,12 @@ const StyledWrapper = styled.div`
         }
     }
 
+    a {
+        display: block;
+        margin: 0 0 20px 0;
+        text-align: center;
+    }
+
     .error {
         font-weight: bold;
         color: red;
@@ -111,11 +117,22 @@ const PlaceDetails = () => {
     }, [id]);
 
     const [inputValues, setInputValues] = useState({
-        login: "",
-        email: "",
-        password: "",
-        confirmedPassword: "",
+        name: "",
+        url: "",
+        description: "",
+        background: "",
     });
+    //Update input values from fetched place
+    useEffect(() => {
+        if (place) {
+            setInputValues({
+                name: place.name,
+                url: place.url,
+                description: place.description,
+                background: place.background
+            })
+        }
+    }, [place]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValues({
@@ -126,7 +143,7 @@ const PlaceDetails = () => {
 
     const handleFormSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!inputValues.login || !inputValues.email || !inputValues.password || !inputValues.confirmedPassword) {
+        /*if (!inputValues.login || !inputValues.email || !inputValues.password || !inputValues.confirmedPassword) {
             setError("Wszystkie pola muszą być wypełnione");
         } else if (inputValues.password !== inputValues.confirmedPassword) {
             setError("Hasła nie są takie same");
@@ -152,7 +169,7 @@ const PlaceDetails = () => {
             } catch(err: any) {
                 setError(err.message);
             }
-        }
+        }*/
     };
 
     return(
@@ -169,10 +186,11 @@ const PlaceDetails = () => {
             <p>Opis: Jakiś tam opis firmy. Najlepsza firma, sprzedajemy mleko. Bla bla bla. Wejdź i zobacz</p>
             {place.owner === userId &&
                 <form onSubmit={handleFormSubmit}>
-                <Input id="name" label="Nazwa" name="name" value={inputValues.login} onChange={handleInputChange} />
-                <Input id="url" label="Adres URL" name="url" value={inputValues.email} onChange={handleInputChange} />
-                <Input id="description" label="Opis" name="description" value={inputValues.password} onChange={handleInputChange} />
-                <Input id="background" name="background" label="Kolor" value={inputValues.confirmedPassword} onChange={handleInputChange} />
+                <Input id="name" label="Nazwa" name="name" value={inputValues.name} onChange={handleInputChange} />
+                <Input id="url" label="Adres URL" name="url" value={inputValues.url} onChange={handleInputChange} />
+                <Input id="description" label="Opis" name="description" value={inputValues.description} onChange={handleInputChange} />
+                <Input id="background" name="background" label="Kolor (HEX Code)" value={inputValues.background} onChange={handleInputChange} />
+                <a href="https://htmlcolorcodes.com/" target="_blank" rel="noreferrer">Generator kolorów</a>
                 {error && <p className="error">{error}</p>}
                 <StyledButton primary={true}>Zmień dane</StyledButton>
                 </form>
