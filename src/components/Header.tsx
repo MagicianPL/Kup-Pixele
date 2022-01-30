@@ -130,7 +130,6 @@ const Header = () => {
 
     //For toggling mobile navigation and prevent scrolling
     const toggleNav = () => {
-        console.log(showMobileNav);
         //only on max-width: 699px - on desktop, mobile nav doesn't show, there is no need to prevent scrolling;
         if(window.matchMedia("(max-width: 699px)").matches) {
             setShowMobileNav(!showMobileNav);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { UserContext } from '../context/UserContext';
 import CenteredContainer from './CenteredContainer';
@@ -94,7 +94,6 @@ const StyledWrapper = styled.div`
 `;
 
 const PlaceDetails = () => {
-    const navigate = useNavigate();
     //id of place
     const {id} = useParams();
     //user id
@@ -102,6 +101,8 @@ const PlaceDetails = () => {
 
     const [place, setPlace] = useState<any>(null);
     const [error, setError] = useState("");
+    const [successUpdate, setSuccessUpdate] = useState<any>(place);
+    const [successInfo, setSuccessInfo] = useState("");
 
     //For fetching place from DB
     useEffect(() => {
@@ -114,7 +115,7 @@ const PlaceDetails = () => {
             setPlace(data);
         };
         fetchPlace();
-    }, [id]);
+    }, [id, successUpdate]);
 
     const [inputValues, setInputValues] = useState({
         name: "",
@@ -126,10 +127,10 @@ const PlaceDetails = () => {
     useEffect(() => {
         if (place) {
             setInputValues({
-                name: place.name,
-                url: place.url,
-                description: place.description,
-                background: place.background
+                name: place.name || "",
+                url: place.url || "",
+                description: place.description || "",
+                background: place.background || "",
             })
         }
     }, [place]);
@@ -141,35 +142,37 @@ const PlaceDetails = () => {
         });
     }
 
+    const {user: {token}} = useContext(UserContext);
     const handleFormSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        /*if (!inputValues.login || !inputValues.email || !inputValues.password || !inputValues.confirmedPassword) {
-            setError("Wszystkie pola muszą być wypełnione");
-        } else if (inputValues.password !== inputValues.confirmedPassword) {
-            setError("Hasła nie są takie same");
+        if (!inputValues.name || !inputValues.url || !inputValues.background) {
+            setError("Nazwa, adres url oraz kolor muszą być wypełnione");
         } else {
             try {
-                const res = await fetch("http://localhost:5000/api/user/register", {
-                    method: "POST",
+                const res = await fetch(`http://localhost:5000/api/pixels/${id}`, {
+                    method: "PUT",
                     body: JSON.stringify({
-                        login: inputValues.login,
-                        email: inputValues.email,
-                        password: inputValues.password,
+                        name: inputValues.name,
+                        url: inputValues.url,
+                        description: inputValues.description,
+                        background: inputValues.background
                     }),
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                         //'Content-Type': 'application/x-www-form-urlencoded',
+                        'authorization': `Bearer ${token}`
                       },
                 });
                 const data = await res.json();
                 if (!res.ok) {
                     return setError(data.message);
                 };
-                navigate("/login&successregister");
+                setSuccessUpdate(data);
+                setSuccessInfo("Zaktualizowano");
             } catch(err: any) {
                 setError(err.message);
             }
-        }*/
+        }
     };
 
     return(
@@ -179,7 +182,7 @@ const PlaceDetails = () => {
             {place === null ? !error ? <h1 className="loading">Ładowanie</h1> : null : null}
             {place &&
             <>
-            <p className="limited">Edycja Limitowana</p>
+            {place.isLimited && <p className="limited">Edycja Limitowana</p>}
             <h1>Miejsce nr {place.number} <div style={{background: `${place.background}`}}></div></h1>
             <h2>Nazwa: <span>Jakaś testowa nazwa firmy</span></h2>
             <h3>Adres: <span style={{maxWidth: "100%", wordBreak: "break-all"}}>https://www.jakaśtestowastrona.pl</span></h3>
@@ -192,6 +195,7 @@ const PlaceDetails = () => {
                 <Input id="background" name="background" label="Kolor (HEX Code)" value={inputValues.background} onChange={handleInputChange} />
                 <a href="https://htmlcolorcodes.com/" target="_blank" rel="noreferrer">Generator kolorów</a>
                 {error && <p className="error">{error}</p>}
+                {successInfo && <p>{successInfo}</p>}
                 <StyledButton primary={true}>Zmień dane</StyledButton>
                 </form>
             }

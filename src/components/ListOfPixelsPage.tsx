@@ -142,7 +142,7 @@ const ListOfPixelsPage = () => {
                         <li key={item.number} className="place">
                             <div style={{background: `${item.background}`}}></div>
                             <p>Numer miejsca: {item.number}</p>
-                            <p>Adres: https://www.testtakitamtest.pl</p>
+                            <p>Adres: {item.url}</p>
                             <span className="break"></span>
                             <Link to={`/place/${item._id}`}><StyledEditButton>Edytuj</StyledEditButton></Link>
                             {item.isLimited && <p className="limited">EDYCJA LIMITOWANA</p>}

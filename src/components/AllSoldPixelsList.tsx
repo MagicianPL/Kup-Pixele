@@ -91,6 +91,11 @@ const StyledWrapper = styled.div`
             transform: scale(1);
         }
     }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 `
 
 const AllSoldPixelsList = () => {
@@ -105,11 +110,6 @@ const AllSoldPixelsList = () => {
         }
     }, [wholeList, soldPlaces, loadingData]);
 
-    useEffect(() => {
-        console.log("render");
-    })
-
-
     return(
     <StyledWrapper>
         <CenteredContainer>
@@ -121,10 +121,10 @@ const AllSoldPixelsList = () => {
                 <ul>
                 {soldPlaces.map((item: any) => {
                     return(
-                        <Link to={`/place/${item._id}`}><li key={item.number} className="place">
+                        <Link key={item.number} to={`/place/${item._id}`}><li className="place">
                             <div style={{background: `${item.background}`}}></div>
                             <p>Numer miejsca: {item.number}</p>
-                            <p>Adres: https://www.testtakitamtest.pl</p>
+                            <p>Adres: {item.url}</p>
                             { item.isLimited && <p className="limited">EDYCJA LIMITOWANA</p> }
                         </li></Link>
                     )
