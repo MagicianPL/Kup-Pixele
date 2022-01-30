@@ -112,7 +112,7 @@ const PixelsGrid = () => {
             <StyledGridContainer>
             {pixelPackages.map((item: any) => {
                 return(
-                    !item.isLimited && item.isSold ? <a key={item._id} href="/" style={{background: `${item.background}`}}><div></div></a> : <div key={item._id} className="empty"></div>
+                    !item.isLimited && item.isSold ? <a key={item._id} href={item.url} target="_blank" rel="noreferrer"  style={{background: `${item.background}`}}><div></div></a> : <div key={item._id} className="empty"></div>
                 )
             })}
             <LimitedGrid />
