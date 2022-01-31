@@ -105,6 +105,11 @@ const StyledWrapper = styled.div`
             transform: scale(1);
         }
     }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 `;
 
 const StyledEditButton = styled(StyledButton)`
