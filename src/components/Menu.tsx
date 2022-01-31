@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { HashLink as Link } from 'react-router-hash-link';
 import {BsArrowRightCircleFill} from 'react-icons/bs';
 
 const StyledUl = styled.ul`
@@ -96,10 +96,10 @@ const Menu: React.FC<IProps> = ({showMobileNav, toggleNav}) => {
     return(
         <StyledUl className={showMobileNav ? "mobileMenuActive" : undefined}>
             <li onClick={()=> toggleNav()}><Link to="/">Pixele</Link></li>
-            <li onClick={()=> toggleNav()}><a href="/#aboutPage">O co chodzi?</a></li>
+            <li onClick={()=> toggleNav()}><Link to="/#aboutPage">O co chodzi?</Link></li>
             <li onClick={()=> toggleNav()}><Link to="/soldlist">Lista</Link></li>
-            <li onClick={()=> toggleNav()}>Kup Pixele</li>
-            <li onClick={()=> toggleNav()}>Edycja Limitowana</li>
+            <li onClick={()=> toggleNav()}><Link to="/buy">Kup Pixele</Link></li>
+            <li onClick={()=> toggleNav()}><Link to="/limited">Edycja Limitowana</Link></li>
             <BsArrowRightCircleFill onClick={toggleNav}/>
         </StyledUl>
     );

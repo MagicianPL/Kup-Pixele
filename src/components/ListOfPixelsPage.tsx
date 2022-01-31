@@ -153,7 +153,7 @@ const ListOfPixelsPage = () => {
             </> :
             <>
             <h1>W tej chwili nie masz wykupionych miejsc</h1>
-            <StyledButton primary>Kup Pixele</StyledButton>
+            <Link to="/buy"><StyledButton primary>Kup Pixele</StyledButton></Link>
             </> : null}
         </CenteredContainer>
     </StyledWrapper>

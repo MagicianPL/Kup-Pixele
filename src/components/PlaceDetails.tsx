@@ -102,7 +102,8 @@ const PlaceDetails = () => {
     //id of place
     const {id} = useParams();
     //user id
-    const {user: {_id: userId}} = useContext(UserContext);
+    const {user} = useContext(UserContext);
+    const userId = user ? user._id : null;
 
     const [place, setPlace] = useState<any>(null);
     const [placeError, setPlaceError] = useState<any>("");
@@ -113,7 +114,7 @@ const PlaceDetails = () => {
     //For fetching place from DB
     useEffect(() => {
         const fetchPlace = async() => {
-            const res = await fetch(`http://localhost:5000/api/pixels/${id}`)
+            const res = await fetch(`https://kup-pixele-api.herokuapp.com/api/pixels/${id}`)
             const data = await res.json();
             if(!res.ok) {
                 return setPlaceError(data.message);
@@ -148,14 +149,14 @@ const PlaceDetails = () => {
         });
     }
 
-    const {user: {token}} = useContext(UserContext);
+    const token = user? user.token : null;
     const handleFormSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!inputValues.name || !inputValues.url || !inputValues.background) {
             setError("Nazwa, adres url oraz kolor muszą być wypełnione");
         } else {
             try {
-                const res = await fetch(`http://localhost:5000/api/pixels/${id}`, {
+                const res = await fetch(`https://kup-pixele-api.herokuapp.com/api/pixels/${id}`, {
                     method: "PUT",
                     body: JSON.stringify({
                         name: inputValues.name,

@@ -5,7 +5,7 @@ const PixelsProvider: React.FC = ({children}) => {
     const [pixelsArr, setPixelsArr] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/pixels/")
+        fetch("https://kup-pixele-api.herokuapp.com/api/pixels/")
         .then(res => res.json())
         .then(data => setPixelsArr(data))
     }, []);

@@ -62,7 +62,7 @@ const LoginPage = () => {
         e.preventDefault();
         
         try {
-            const res = await fetch("http://localhost:5000/api/user/login", {
+            const res = await fetch("https://kup-pixele-api.herokuapp.com/api/user/login", {
                     method: "POST",
                     body: JSON.stringify({
                         email: inputValues.email,
@@ -80,7 +80,7 @@ const LoginPage = () => {
                 await setUser(data);
                 localStorage.setItem("user", JSON.stringify(data));
                 //redirecting to homepage with refreshing (and get data from backend in PixelsContext one more time with login)
-                window.location.href="/";
+                window.location.href="/Kup-Pixele";
         } catch(err: any) {
             setError(err.message);
         };

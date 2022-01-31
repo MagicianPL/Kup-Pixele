@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import CenteredContainer from './CenteredContainer';
 import Logo from './Logo';
 import StyledButton from './StyledButton';
@@ -107,6 +108,11 @@ const StyledWrapper = styled.div`
             }
         }
     }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 `;
 
 const About = () => {
@@ -142,7 +148,7 @@ const About = () => {
                     <p>Zainwestuj, bądź właścicielem pixelowego miejsca, zostań członkiem społeczności!<br/>Miejsce kosztuje tylko 10&nbsp;złotych!</p>
                     </div>
                 </div>
-                <StyledButton>Kup Pixele</StyledButton>
+                <Link to="/buy"><StyledButton>Kup Pixele</StyledButton></Link>
             </CenteredContainer>
         </StyledWrapper>
     );

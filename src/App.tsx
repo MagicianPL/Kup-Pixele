@@ -14,14 +14,14 @@ import UserUpdatePage from './components/UserUpdatePage';
 import AllSoldPixelsList from './components/AllSoldPixelsList';
 import PlaceDetails from './components/PlaceDetails';
 import LoggedRoute from './components/LoggedRoute';
-import {BrowserRouter,
+import {HashRouter,
   Routes,
   Route} from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <UserProvider>
         <Header />
         <PixelsProvider>
@@ -39,7 +39,7 @@ function App() {
           </Routes>
         </PixelsProvider>
         </UserProvider>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }

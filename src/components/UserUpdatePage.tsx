@@ -68,7 +68,7 @@ const UserUpdatePage = () => {
             setError("Hasła nie są takie same");
         } else {
             try {
-                const res = await fetch("http://localhost:5000/api/user/update", {
+                const res = await fetch("https://kup-pixele-api.herokuapp.com/api/user/update", {
                     method: "PUT",
                     body: JSON.stringify({
                         login: inputValues.login,
