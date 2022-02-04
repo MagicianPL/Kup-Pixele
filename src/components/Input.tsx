@@ -42,7 +42,7 @@ interface Props {
 }
 
 const Input: React.FC<Props> = ({id, label, value, onChange, type, placeholder, name, textarea}) => {
-    console.log(textarea);
+
     return(
         textarea ?
             <StyledWrapper>

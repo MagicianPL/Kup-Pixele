@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import CenteredContainer from './CenteredContainer';
 import Input from './Input';
@@ -19,12 +19,23 @@ const StyledWrapper = styled.div`
 `;
 
 const BuyPlace = () => {
-    const inputValues = {
+    const initialValues = {
+        name: "",
+        url: "",
+        description: "",
+        background: "",
         qty: "",
     }
 
-    const handleInputChange = () => {
-        console.log("mmk")
+    const [inputValues, setInputValues] = useState(initialValues);
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+        setInputValues((prevValues) => {
+           return {
+                ...prevValues,
+                [e.target.name]: e.target.value,
+            }
+        });
     };
 
     return(
@@ -32,10 +43,10 @@ const BuyPlace = () => {
         <CenteredContainer>
             <h1>Kupno Miejsc</h1>
             <form>
-                <Input id="name" name="name" label="Nazwa" placeholder="Podaj nazwę miejsca" value={inputValues.qty} onChange={handleInputChange} />
-                <Input id="url" name="url" label="Adres URL" value={inputValues.qty} placeholder="Adres www" onChange={handleInputChange} />
-                <Input id="description" name="description" label="Opis (opcjonalnie)" textarea={true} value={inputValues.qty} onChange={handleInputChange} />
-                <Input id="background" name="background" label="Kolor (w HEX kodzie)" value={inputValues.qty} onChange={handleInputChange} />
+                <Input id="name" name="name" label="Nazwa" placeholder="Podaj nazwę miejsca" value={inputValues.name} onChange={handleInputChange} />
+                <Input id="url" name="url" label="Adres URL" value={inputValues.url} placeholder="Adres www" onChange={handleInputChange} />
+                <Input id="description" name="description" label="Opis (opcjonalnie)" textarea={true} value={inputValues.description} onChange={handleInputChange} />
+                <Input id="background" name="background" label="Kolor (w HEX kodzie)" value={inputValues.background} onChange={handleInputChange} />
                 <Input id="qty" name="qty" label="Ilość miejsc" value={inputValues.qty} onChange={handleInputChange} />
             </form>
         </CenteredContainer>
