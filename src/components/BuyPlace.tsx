@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { PixelsContext } from '../context/PixelsContext';
 import CenteredContainer from './CenteredContainer';
@@ -30,13 +30,23 @@ const StyledWrapper = styled.div`
             max-width: 35px;
             height: 100%;
             aspect-ratio: 1/1;
-            border: 1px solid black;
             cursor: pointer;
             padding: 5px;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 4px;
+            background: lightgray;
+            border: 1px solid transparent;
+            transition: border 0.4s;
+
+        &:hover {
+            border: 1px solid black;
+        }
+
+        &.border {
+            border: 1px solid black;
+        }
 
             &::after {
                 content: "";
@@ -72,15 +82,36 @@ const BuyPlace = () => {
     const places = useContext(PixelsContext);
     const nonLimitedPlaces = places.filter((place: any) => place.isLimited === false && place.isSold === false);
 
+    //violet || red || green
+    const [borderOn, setBorderOn] = useState<string | null>("violet");
+
     const initialValues = {
         name: "",
         url: "",
         description: "",
-        background: "",
+        //violet is default
+        background: "#21092f",
         qty: "",
     }
 
     const [inputValues, setInputValues] = useState(initialValues);
+
+    useEffect(() => {
+        if(borderOn) {
+            setInputValues((prev: any) => {
+                return {
+                    ...prev,
+                    background: borderOn === 'violet' ? '#21092f' : borderOn === 'red' ? '#a62508' : borderOn === "green" ? '#0da608' : "",
+                }
+            })
+        }
+    }, [borderOn])
+
+    useEffect(() => {
+        if (inputValues.background !== '#21092f' && inputValues.background !== '#a62508' && inputValues.background !== '#0da608') {
+            setBorderOn(null);
+        };
+    }, [inputValues]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         setInputValues((prevValues) => {
@@ -89,6 +120,11 @@ const BuyPlace = () => {
                 [e.target.name]: e.target.value,
             }
         });
+    };
+
+    const handleColorClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        const value = (e.currentTarget.getAttribute("data-value"));
+        setBorderOn(value);
     };
 
     return(
@@ -100,9 +136,9 @@ const BuyPlace = () => {
                 <Input id="url" name="url" label="Adres URL" value={inputValues.url} placeholder="Adres www" onChange={handleInputChange} />
                 <Input id="description" name="description" label="Opis (opcjonalnie)" textarea={true} value={inputValues.description} onChange={handleInputChange} />
                 <div className="colors">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <div className={borderOn === "violet" ? "border" : ""} data-value="violet" onClick={handleColorClick}></div>
+                    <div className={borderOn === "red" ? "border" : ""} data-value="red" onClick={handleColorClick}></div>
+                    <div className={borderOn === "green" ? "border" : ""} data-value="green" onClick={handleColorClick}></div>
                 </div>
                 <Input id="background" name="background" label="Kolor (w HEX kodzie)" value={inputValues.background} onChange={handleInputChange} />
                 <a href="https://htmlcolorcodes.com/" target="_blank" rel="noreferrer">Generator kolorów</a>
