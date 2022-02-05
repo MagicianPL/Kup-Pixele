@@ -76,6 +76,14 @@ const StyledWrapper = styled.div`
         text-align: center;
         margin: 10px 0 30px 0;
     }
+
+    .error {
+        text-align: center;
+        font-weight: bold;
+        color: red;
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
 `;
 
 const BuyPlace = () => {
@@ -83,6 +91,8 @@ const BuyPlace = () => {
     const nonLimitedPlaces = places.filter((place: any) => place.isLimited === false && place.isSold === false);
 
     //violet || red || green
+    //conditional className on colors div
+    //also if true - it's sets input background value
     const [borderOn, setBorderOn] = useState<string | null>("violet");
 
     const initialValues = {
@@ -91,11 +101,19 @@ const BuyPlace = () => {
         description: "",
         //violet is default
         background: "#21092f",
-        qty: "",
+        qty: "1",
     }
 
     const [inputValues, setInputValues] = useState(initialValues);
 
+    //Checking if background on input value is not equal to one of colors to choose. If not - set border on null
+    useEffect(() => {
+        if (inputValues.background !== '#21092f' && inputValues.background !== '#a62508' && inputValues.background !== '#0da608') {
+            setBorderOn(null);
+        };
+    }, [inputValues]);
+
+    //when borderOn is changing && when is still true - set background input value
     useEffect(() => {
         if(borderOn) {
             setInputValues((prev: any) => {
@@ -105,13 +123,12 @@ const BuyPlace = () => {
                 }
             })
         }
-    }, [borderOn])
+    }, [borderOn]);
 
-    useEffect(() => {
-        if (inputValues.background !== '#21092f' && inputValues.background !== '#a62508' && inputValues.background !== '#0da608') {
-            setBorderOn(null);
-        };
-    }, [inputValues]);
+    const handleColorClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        const value = (e.currentTarget.getAttribute("data-value"));
+        setBorderOn(value);
+    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         setInputValues((prevValues) => {
@@ -122,16 +139,41 @@ const BuyPlace = () => {
         });
     };
 
-    const handleColorClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        const value = (e.currentTarget.getAttribute("data-value"));
-        setBorderOn(value);
+    const [error, setError] = useState("");
+
+    const validateInputs = () => {
+        if (!inputValues.name || !inputValues.url || !inputValues.background || !inputValues.qty) {
+            setError("Wszystkie wymagane pola muszą być wypełnione");
+            return false;
+        } else {
+            const amount = parseFloat(inputValues.qty);
+            if (!Number.isInteger(amount)) {
+                setError("Nieprawidłowa ilość miejsc");
+                return false;
+            } else if (amount < 1 || amount > nonLimitedPlaces.length) {
+                setError("Nieprawidłowa ilość miejsc");
+                return false;
+            } else {
+                setError("");
+                return true;
+            }
+        }
+    };
+
+    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        //returns true when values are valid
+        const isValid = validateInputs();
+        if (isValid) {
+            console.log("Submitting form");
+        }
     };
 
     return(
         <StyledWrapper>
         <CenteredContainer>
             <h1>Kupno Miejsc</h1>
-            <form>
+            <form onSubmit={handleFormSubmit}>
                 <Input id="name" name="name" label="Nazwa" placeholder="Podaj własną nazwę" value={inputValues.name} onChange={handleInputChange} />
                 <Input id="url" name="url" label="Adres URL" value={inputValues.url} placeholder="Adres www" onChange={handleInputChange} />
                 <Input id="description" name="description" label="Opis (opcjonalnie)" textarea={true} value={inputValues.description} onChange={handleInputChange} />
@@ -143,6 +185,7 @@ const BuyPlace = () => {
                 <Input id="background" name="background" label="Kolor (w HEX kodzie)" value={inputValues.background} onChange={handleInputChange} />
                 <a href="https://htmlcolorcodes.com/" target="_blank" rel="noreferrer">Generator kolorów</a>
                 <Input id="qty" name="qty" type="number" label={`Ilość miejsc ${places.length > 0 ? `(${nonLimitedPlaces.length} dostępnych z edycji nielimitowanej)` : ""}`} value={inputValues.qty} onChange={handleInputChange} />
+                {error && <p className="error">{error}</p>}
                 <StyledButton primary>Kupuję</StyledButton>
             </form>
         </CenteredContainer>
