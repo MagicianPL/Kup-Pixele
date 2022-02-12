@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { PixelsContext } from '../context/PixelsContext';
+import { UserContext } from '../context/UserContext';
 import CenteredContainer from './CenteredContainer';
 import Input from './Input';
 import StyledButton from './StyledButton';
@@ -160,12 +161,24 @@ const BuyPlace = () => {
         }
     };
 
+    const { user } = useContext(UserContext);
+    const token = user?.token;
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //returns true when values are valid
         const isValid = validateInputs();
         if (isValid) {
-            console.log("Submitting form");
+            console.log("Submitting form"); 
+            fetch("http://localhost:5000/api/pixels/buy/nonlimited", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${token}`
+                  },
+                  body: JSON.stringify(inputValues)
+            })
+            .then((res: any) => res.json())
+            .then((data: any) => console.log(data.message));
         }
     };
 
