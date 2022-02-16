@@ -172,8 +172,8 @@ const BuyPlace = () => {
             if (inputValues.url.indexOf("http://") !== 0 && inputValues.url.indexOf("https://") !== 0) {
              setInputValues({...inputValues, url: `https://${inputValues.url}`})
             };
-            
-            fetch("http://localhost:5000/api/pixels/buy/nonlimited", {
+
+            fetch("https://kup-pixele-api.herokuapp.com/api/pixels/buy/nonlimited", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -182,7 +182,7 @@ const BuyPlace = () => {
                   body: JSON.stringify(inputValues)
             })
             .then((res: any) => res.json())
-            .then((data: any) => console.log(inputValues));
+            .then((data: any) => console.log(data.message));
         }
     };
 
