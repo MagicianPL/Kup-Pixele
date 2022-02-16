@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import SyncLoader from "react-spinners/SyncLoader";
 
@@ -47,6 +47,16 @@ interface IProps {
 }
 
 const BuyingPlaceInfoModal: React.FC<IProps> = ({fetchingError}) => {
+    
+    //If error from fetching is true - redirect to homepage after 5s
+    useEffect(() => {
+        if(fetchingError) {
+            setTimeout(() => {
+                window.location.href="https://magicianpl.github.io/Kup-Pixele";
+            }, 5000);
+        };
+    });
+
     return(
         <StyledOverlay>
             <div>
@@ -61,6 +71,7 @@ const BuyingPlaceInfoModal: React.FC<IProps> = ({fetchingError}) => {
             <>
             <p className="error">Ups, coś poszło nie tak...</p>
             <p className="error">{fetchingError}</p>
+            <p className="error">Nastąpi przekierowanie na stronę główną</p>
             </>
             }
             </div>
