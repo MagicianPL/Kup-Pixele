@@ -164,7 +164,8 @@ const BuyPlace = () => {
     };
 
     //Conditionally rendering for BuyingPlaceInfoModal - when data is fetching
-    const [showLoadingModal, setShowLoadingModal] = useState(true);
+    const [showLoadingModal, setShowLoadingModal] = useState(false);
+    const [fetchingError, setFetchingError] = useState("");
 
     const { user } = useContext(UserContext);
     const token = user?.token;
@@ -186,8 +187,12 @@ const BuyPlace = () => {
                   },
                   body: JSON.stringify(inputValues)
             });
-            //TO DO **************************
-            if (!res.ok) return;
+
+            if (!res.ok) {
+                const error = await res.json();
+                setFetchingError(error.message);
+                return;
+            };
 
             const sessionUrl = await res.json();
             window.location.href = sessionUrl;
@@ -214,7 +219,7 @@ const BuyPlace = () => {
                 <StyledButton primary>Kupuję</StyledButton>
             </form>
         </CenteredContainer>
-        {showLoadingModal && <BuyingPlaceInfoModal />}
+        {showLoadingModal && <BuyingPlaceInfoModal fetchingError={fetchingError} />}
     </StyledWrapper>
     );
 };
