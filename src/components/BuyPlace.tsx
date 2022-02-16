@@ -5,6 +5,7 @@ import { UserContext } from '../context/UserContext';
 import CenteredContainer from './CenteredContainer';
 import Input from './Input';
 import StyledButton from './StyledButton';
+import BuyingPlaceInfoModal from './BuyingPlaceInfoModal';
 
 const StyledWrapper = styled.div`
     width: 100%;
@@ -163,7 +164,7 @@ const BuyPlace = () => {
 
     const { user } = useContext(UserContext);
     const token = user?.token;
-    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //returns true when values are valid
         const isValid = validateInputs();
@@ -173,16 +174,19 @@ const BuyPlace = () => {
              setInputValues({...inputValues, url: `https://${inputValues.url}`})
             };
 
-            fetch("https://kup-pixele-api.herokuapp.com/api/pixels/buy/nonlimited", {
+            const res = await fetch("https://kup-pixele-api.herokuapp.com/api/pixels/buy/nonlimited", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'authorization': `Bearer ${token}`
                   },
                   body: JSON.stringify(inputValues)
-            })
-            .then((res: any) => res.json())
-            .then((data: any) => console.log(data.message));
+            });
+            //TO DO **************************
+            if (!res.ok) return;
+
+            const sessionUrl = await res.json();
+            window.location.href = sessionUrl;
         }
     };
 
@@ -206,6 +210,7 @@ const BuyPlace = () => {
                 <StyledButton primary>Kupuję</StyledButton>
             </form>
         </CenteredContainer>
+        <BuyingPlaceInfoModal />
     </StyledWrapper>
     );
 };
