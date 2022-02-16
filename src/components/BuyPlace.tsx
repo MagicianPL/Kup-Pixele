@@ -141,6 +141,7 @@ const BuyPlace = () => {
         });
     };
 
+    //validating error
     const [error, setError] = useState("");
 
     const validateInputs = () => {
@@ -162,6 +163,9 @@ const BuyPlace = () => {
         }
     };
 
+    //Conditionally rendering for BuyingPlaceInfoModal - when data is fetching
+    const [showLoadingModal, setShowLoadingModal] = useState(true);
+
     const { user } = useContext(UserContext);
     const token = user?.token;
     const handleFormSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
@@ -173,7 +177,7 @@ const BuyPlace = () => {
             if (inputValues.url.indexOf("http://") !== 0 && inputValues.url.indexOf("https://") !== 0) {
              setInputValues({...inputValues, url: `https://${inputValues.url}`})
             };
-
+            setShowLoadingModal(true);
             const res = await fetch("https://kup-pixele-api.herokuapp.com/api/pixels/buy/nonlimited", {
                 method: 'POST',
                 headers: {
@@ -210,7 +214,7 @@ const BuyPlace = () => {
                 <StyledButton primary>Kupuję</StyledButton>
             </form>
         </CenteredContainer>
-        <BuyingPlaceInfoModal />
+        {showLoadingModal && <BuyingPlaceInfoModal />}
     </StyledWrapper>
     );
 };
