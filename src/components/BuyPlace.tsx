@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { PixelsContext } from '../context/PixelsContext';
 import { UserContext } from '../context/UserContext';
@@ -169,8 +170,11 @@ const BuyPlace = () => {
 
     const { user } = useContext(UserContext);
     const token = user?.token;
+    const navigate = useNavigate();
     const handleFormSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        //If user is not logged navigate to login page
+        if (!user) return navigate("/login");
         //returns true when values are valid
         const isValid = validateInputs();
         if (isValid) {
