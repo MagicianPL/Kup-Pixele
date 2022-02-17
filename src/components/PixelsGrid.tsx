@@ -105,10 +105,10 @@ const PixelsGrid = () => {
 
     return(
         <>
-        {pixelPackages.length < 1 && <StyledLoadingInfo>Ładuję <span>milion pixeli</span> specjalnie dla Ciebie...<br />Poczekaj kilka sekund<br /><ClipLoader color="#150140" size="30" /></StyledLoadingInfo>}
+        {pixelPackages.length < 1 && <StyledLoadingInfo id="home">Ładuję <span>milion pixeli</span> specjalnie dla Ciebie...<br />Poczekaj kilka sekund<br /><ClipLoader color="#150140" size="30" /></StyledLoadingInfo>}
         {pixelPackages.length > 0 &&
             <>
-            <StyledSoldInfo>Wykupione miejsca: {soldQty} / 10 000</StyledSoldInfo>
+            <StyledSoldInfo id="home">Wykupione miejsca: {soldQty} / 10 000</StyledSoldInfo>
             <StyledGridContainer>
             {pixelPackages.map((item: any) => {
                 return(
