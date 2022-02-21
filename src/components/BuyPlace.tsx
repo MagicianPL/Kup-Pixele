@@ -206,7 +206,7 @@ const BuyPlace = () => {
     return(
         <StyledWrapper>
         <CenteredContainer>
-            <h1>Kupno Miejsc</h1>
+            <h1 data-testid="header">Kupno Miejsc</h1>
             <form onSubmit={handleFormSubmit}>
                 <Input id="name" name="name" label="Nazwa" placeholder="Podaj własną nazwę" value={inputValues.name} onChange={handleInputChange} />
                 <Input id="url" name="url" label="Adres URL" value={inputValues.url} placeholder="Adres www" onChange={handleInputChange} />
