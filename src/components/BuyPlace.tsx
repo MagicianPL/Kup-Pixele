@@ -218,7 +218,7 @@ const BuyPlace = () => {
                 </div>
                 <Input id="background" name="background" label="Kolor (w HEX kodzie)" value={inputValues.background} onChange={handleInputChange} />
                 <a href="https://htmlcolorcodes.com/" target="_blank" rel="noreferrer">Generator kolorów</a>
-                <Input id="qty" name="qty" type="number" label={`Ilość miejsc ${places.length > 0 ? `(${nonLimitedPlaces.length} dostępnych z edycji nielimitowanej)` : ""}`} value={inputValues.qty} onChange={handleInputChange} />
+                <Input testId="qty" id="qty" name="qty" type="number" label={`Ilość miejsc ${places.length > 0 ? `(${nonLimitedPlaces.length} dostępnych z edycji nielimitowanej)` : ""}`} value={inputValues.qty} onChange={handleInputChange} />
                 {error && <p className="error">{error}</p>}
                 <StyledButton primary>Kupuję</StyledButton>
             </form>

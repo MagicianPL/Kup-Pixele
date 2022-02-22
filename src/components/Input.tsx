@@ -38,10 +38,11 @@ interface Props {
     onChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void,
     type?: string,
     placeholder?: string,
-    textarea?: boolean
+    textarea?: boolean,
+    testId?: string,
 }
 
-const Input: React.FC<Props> = ({id, label, value, onChange, type, placeholder, name, textarea}) => {
+const Input: React.FC<Props> = ({id, label, value, onChange, type, placeholder, name, textarea, testId}) => {
 
     return(
         textarea ?
@@ -52,7 +53,7 @@ const Input: React.FC<Props> = ({id, label, value, onChange, type, placeholder, 
         :
         <StyledWrapper>
         <label htmlFor={id}>{label}</label>
-        <input id={id} value={value} onChange={onChange} type={type ? type : "text"} placeholder={placeholder} name={name} />
+        <input data-testid={testId} id={id} value={value} onChange={onChange} type={type ? type : "text"} placeholder={placeholder} name={name} />
         </StyledWrapper>
         
     );
