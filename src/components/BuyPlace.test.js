@@ -1,6 +1,5 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 import "@testing-library/jest-dom";
 import BuyPlace from "./BuyPlace";
@@ -37,7 +36,7 @@ describe("BuyPlace Component", () => {
     });
   });
 
-  test("should change input value", async () => {
+  test("should display specific error message when value on specific input is not an integer", async () => {
     render(
       <HashRouter>
         <UserContext.Provider value={{ user: true }}>
@@ -46,28 +45,22 @@ describe("BuyPlace Component", () => {
       </HashRouter>
     );
     const nameInputEl = screen.getByPlaceholderText("Podaj własną nazwę");
-    screen.debug();
-    /*const urlInputEl = screen.getByPlaceholderText("Adres www");
+    const urlInputEl = screen.getByPlaceholderText("Adres www");
     const qtyInputEl = screen.queryByTestId("qty");
-    const btn = screen.getByRole("button");*/
+    const btn = screen.getByRole("button");
 
     fireEvent.input(nameInputEl, {
       target: { value: "Michał" },
     });
+    fireEvent.change(urlInputEl, { target: { value: "www.test.com" } });
+    fireEvent.change(qtyInputEl, { target: { value: 3.4 } });
 
-    /*fireEvent.change(urlInputEl, { target: { value: "www.test.com" } });
-    fireEvent.change(qtyInputEl, { target: { value: 3.4 } });*/
-
-    //fireEvent.click(btn);
+    fireEvent.click(btn);
 
     await waitFor(() => {
-      expect(nameInputEl.value).toBe("Michał");
-    });
-
-    /*await waitFor(() => {
       expect(
         screen.getByText("Nieprawidłowa ilość miejsc")
       ).toBeInTheDocument();
-    });*/
+    });
   });
 });

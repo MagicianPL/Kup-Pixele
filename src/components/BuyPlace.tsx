@@ -134,11 +134,9 @@ const BuyPlace = () => {
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-        setInputValues((prevValues) => {
-           return {
-                ...prevValues,
-                [e.target.name]: e.target.value,
-            }
+        setInputValues({
+                ...inputValues,
+                [e.target.name]: e.target.value
         });
     };
 
