@@ -70,7 +70,7 @@ const LimitedGrid = () => {
         <StyledSubgrid>
             {limitPixelPackages.map((item: any) => {
                 return(
-                    item.isSold ? <a key={item._id} className="limited" href="/" style={{background: `${item.background}`}}><div></div></a> : <div key={item._id} className="empty limited"><p>Edycja Limitowana</p></div>
+                    item.isSold ? <a key={item._id} className="limited" href=`${item.url}` style={{background: `${item.background}`}}><div></div></a> : <div key={item._id} className="empty limited"><p>Edycja Limitowana</p></div>
                 )
             })}
         </StyledSubgrid>
