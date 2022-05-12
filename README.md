@@ -1,6 +1,6 @@
 # KUP PIXELE
 
-Kup Pixele is my MERN Stack Web Application - also with integrated real payments by Strapi.
+Kup Pixele is my MERN Stack Web Application - also with integrated real payments by Stripe.
 
 It is Web Page, when you can buy your pixel place on map.
 Every Pixel Place has color choosed by you and also when someone clicks on your place - he is redirected to your choosed Web Page.
@@ -14,9 +14,9 @@ Every Pixel Place has color choosed by you and also when someone clicks on your 
   - Context for state managment
 - Node.js for Backend (express)
 - MongoDB (mongoose)
-- Strapi Payments
+- Stripe Payments
 
-  - Also Strapi Webhooks on backend for listening events
+  - Also Stripe Webhooks on backend for listening events
 
   ## As a user you can:
 
