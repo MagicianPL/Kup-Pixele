@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Kup-Pixele/static/css/main.2804fb2d.css",
-    "main.js": "/Kup-Pixele/static/js/main.3c7e19fd.js",
+    "main.js": "/Kup-Pixele/static/js/main.d9a9766b.js",
     "index.html": "/Kup-Pixele/index.html",
     "main.2804fb2d.css.map": "/Kup-Pixele/static/css/main.2804fb2d.css.map",
-    "main.3c7e19fd.js.map": "/Kup-Pixele/static/js/main.3c7e19fd.js.map"
+    "main.d9a9766b.js.map": "/Kup-Pixele/static/js/main.d9a9766b.js.map"
   },
   "entrypoints": [
     "static/css/main.2804fb2d.css",
-    "static/js/main.3c7e19fd.js"
+    "static/js/main.d9a9766b.js"
   ]
 }
